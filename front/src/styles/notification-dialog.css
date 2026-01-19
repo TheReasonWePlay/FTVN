@@ -1,0 +1,222 @@
+/* Notification Dialog Component Styles */
+
+.notification-dialog {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 320px;
+  max-width: 400px;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.notification-dialog.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.notification-content {
+  background: var(--element-bg);
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.notification-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notification-dialog.success .notification-icon {
+  color: var(--green-btn);
+}
+
+.notification-dialog.error .notification-icon {
+  color: var(--red-btn);
+}
+
+.notification-message {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-color);
+  margin: 0;
+  word-wrap: break-word;
+  font-weight: 400;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  color: var(--light-text-color);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-top: -2px;
+  margin-right: -4px;
+  opacity: 0.7;
+}
+
+.notification-close:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+  opacity: 1;
+}
+
+/* Dark mode adjustments */
+.dark .notification-content {
+  background: var(--element-bg);
+  border-color: var(--border-color);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.dark .notification-message {
+  color: var(--text-color);
+}
+
+.dark .notification-close {
+  color: var(--light-text-color);
+}
+
+.dark .notification-close:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Success notification specific styling */
+.notification-dialog.success {
+  --notification-accent: var(--green-btn);
+}
+
+.notification-dialog.success .notification-content {
+  border-left: 3px solid var(--notification-accent);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, var(--element-bg) 100%);
+}
+
+/* Error notification specific styling */
+.notification-dialog.error {
+  --notification-accent: var(--red-btn);
+}
+
+.notification-dialog.error .notification-content {
+  border-left: 3px solid var(--notification-accent);
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.05) 0%, var(--element-bg) 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .notification-dialog {
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+    transform: translateX(0) translateY(100%);
+  }
+
+  .notification-dialog.visible {
+    transform: translateX(0) translateY(0);
+  }
+
+  .notification-content {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .notification-message {
+    font-size: 13px;
+  }
+
+  .notification-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .notification-close {
+    margin-top: -1px;
+  }
+}
+
+/* Animation keyframes for more complex animations if needed */
+@keyframes notificationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes notificationSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+/* Apply animations */
+.notification-dialog.visible {
+  animation: notificationSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification-dialog:not(.visible) {
+  animation: notificationSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus states for accessibility */
+.notification-close:focus {
+  outline: 2px solid var(--blue-btn);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .notification-dialog {
+    transition: none;
+  }
+
+  .notification-dialog.visible,
+  .notification-dialog:not(.visible) {
+    animation: none;
+  }
+}
+
+/* Multiple notifications stacking */
+.notification-dialog:nth-child(2) {
+  bottom: 90px;
+}
+
+.notification-dialog:nth-child(3) {
+  bottom: 160px;
+}
+
+.notification-dialog:nth-child(4) {
+  bottom: 230px;
+}
+
+.notification-dialog:nth-child(5) {
+  bottom: 300px;
+}
+
+/* Hide notifications beyond the 5th */
+.notification-dialog:nth-child(n+6) {
+  display: none;
+}

@@ -1,0 +1,122 @@
+Prompt blackbox en anglais pour designer l'interface utilisateur
+
+-requirements :
+	mode claire et mode sombre
+	en css pure
+	responsive
+	icon: lucide-react
+	garde les textes en français dans l'entièreté de l'application
+	une fois le thème changer, toutes l'interface suit ce thème
+	garde le tout sobre et épuré
+	boite le dialogue uniforme et jolie (message d'erreur et de succès)
+
+-sidebar.tsx :
+	en tête, nom de l'application "TrackIT" et un bouton burger pour rédire la barre de navigation
+	sidebar reduit: les icones sont toujours affichées et fonctionnent comme les navigations normales
+	navigation : 
+		admin : tableau de bord, matériels, affectations, inventaires, incidents, utilisateurs
+		responsable : tableau de bord, matériels, affectations, inventaires, incidents
+		paramètres ou utilise un titre qui y correspond mieux avec les sous-menus (salles, positions, personnels)
+	pied : 		
+		bouton pour changer le thème avec une icones changeante
+		ligne séparatrice
+		profil de l'utilisateur : icon, nom et prénom, nomUser, un chevron pour ouvrir un sous-menu (profil et se deconnecter)
+
+-login : 
+	un formulaire de connexion au centre avec email ou nomUser et mot de passe en champ
+	dans le formulaire : le nom de l'application, "Bon retour !", et une phrase pour inciter l'utilisateur à s'authentifier
+	un bouton pour changer le thème de l'application en haut à droit de la page de connexion
+	un arrière plan décoratif en utilisant des couleurs (en gradient par exemple)
+
+-pages généralité : 
+	entête : 
+		bouton de retour à la page précedement visité (si tableau de bord du début, juste raffraissir la page) (chevron)
+		nom de la page en bold
+		le fils d'arianne
+
+-tableau de bord : 
+	cartes d'information : nombre total de matériel, nombre de matériels par status, nombre de matériel par catégorie
+	histogramme donnut : nombre de matériels par statuts
+	histogramme en barre : nombre de matériels par catégorie
+	histogramme en ligne : évolution des mouvements (affectations, incidents, inventaires) par mois par exemple
+	historique des dernières opérations (affectations, incidents, inventaires), pour les incidents seleuments ceux "ouvert"
+	nombre des opérations critiques (nouvel inventaire, incidents récemments signalés, nouvel affectation)
+	les diviser en trois parties : 
+		1 - cartes d'informations matériels et histogramme donnut
+		2 - histogramme en barre et en ligne
+		3 - nombre des opérations critiques et historiques des dernières opérations
+
+-matériels :
+	carte d'informations : matériels par statuts et matériels par catégories
+	recherche par numSerie, par date et entre deux dates
+	bouton "Ajouter" qui ouvre le modal pour le formulaire de création de nouveau matériel (noublie pas la création en bulk et les champs caché pour les ordinanateurs)
+	un tableau pour afficher les matériels
+	mettre les filtres (marque, modèle, catégorie, status) avec les entêtes du tableau
+	actions : modifier, affecter ou clôturer l'affectation, supprimer, consulter
+	Consulter : modal qui affiche les détails du matériels (+ refAffectation, refPosition, refIncident)
+
+-affectations :
+	recherche par refAffectation, numSerie, par date et entre deux dates
+	bouton "Ajouter" qui ouvre le modal pour le formulaire de création de nouvelle affectation
+	un tableau pour afficher les affectations (refAffectation, refPosition, numSerie, nombre de matériels, dateDebut, dateFin, matricule - prénom)
+	actions : clore, supprimer, consulter
+	consulter : modale qui affiche les détails de l'affectation (refAffectation, refPosition, matériels : numSerie, marque, modele, catégorie, dateDebut, dateFin, matricule, prénom)
+
+-incidents :
+	recherche par , refIncident, refInventaire, numSerie, par date et entre deux dates
+	bouton "Signaler un incident" qui ouvre le modal pour le formulaire de signalement d'incident.
+	un tableau pour afficher les affectations (refIncident, refInventaire, typeIncidnet, numSerie,statutIncident, dateInc, matricule - prénom)
+	mettre les filtres (typeIncident, statutIncident, matricule) avec les entêtes du tableau
+	actions : modifier, supprimer, consulter
+	modifier : modal pour changer le statut de l'incident
+	consulter : modale qui affiche les détails de l'incident
+	un incident "ouvert" devient automatiquement "En cours" une fois consulté.
+	les incidents dans tableau de bord (historique des dernières opérations) ouvre aussi le modal consulté (pareil pour affectation et inventaire)
+
+-page "inventaires" :
+	recherche par refInventaire, par date, entre 2 dates
+	un bouton "Faire un inventaire" qui redirige vers une page avec la liste des salles (date et debut sont automatiquement rempli une fois la salle choisi (date et heure actuelle))
+	une fois la salles choisis : un modal (1) s'ouvre
+	modal 1 : nombre de matériel par catégorie dans cette salle, un checkbox prés de chaque valeurs poour comfirmer le nombre, et un bouton pour valider l'inventaire
+	si il y a une anomalie, le bouton pour confirmer l'inventaire ouvre le modale de signalement d'incident.
+	un tableau pour afficher les inventaires par date
+	mettre les filtres (salle, matricule) avec l'entête du tableau
+	actions : consulter, supprimer
+	consulter : modal qui affiche les détails de l'inventaire
+
+-page "Utilisateurs" :
+	recherche par matricule, nom, prenom ou email
+	un bouton pour ajouter un nouvel utilisateur
+	un tableau qui affiche les utilisateurs
+	mettre les filtres (role) avec les entêtes du tableau
+	actions (modifier role, supprimer, consulter)
+	consulter : modal qui affiche les détails de l'utilisateur (personne. et utilisateur.) et un bouton pour modifier le role de l'utilisateur
+	seul l'administrateur peut ajouter de nouveau utilisateur
+	seul l'utilisateur actuel peut changer ses informations et son mot de passe
+
+-page "Positions" :
+	recherche par port et designPosition)
+	un bouton pour ajouter une nouvelle position (n'oublie pas l'option ajout en bulk dans le formulaire)
+	un tableau qui affiche les positions order by refPosition et par refSalle (afficher aussi le nom de la salle)
+	mettre les filtres (occupation, refSalle)
+	actions : modifier, supprimer, consulter
+	consulter : modal qui affiche les détails de la position (avec les affectations et les matériels affectés et les autres boutons actions)
+
+-page "Salles" :
+	recherche par refSalle ou nomsalle
+	un bouton pour ajouter une nouvelle salle
+	un tableau pour afficher les salles (refSalle, nomSalle, nombre de position, étage, site, nombre d'opération en cours(hover les nombres affiche le nom de l'opération(ex: 10 affectations actives)))
+	mettre les filtres (étage) avec l'entête du tableau
+	Séparer les tableaux des salles par site
+	actions : modifier, supprimer, consulter
+	consulter : modal qui ffiche les détails de la salle et la liste des opérations en lien avec cette salle et les positions qu'elle contient
+
+-page "Personnels" (table personne) :
+	recherche par matricule ou nom ou prenom ou email
+	un bouton pour ajouter une nouvelle personne
+	un tableau pour afficher les personnes
+	mettre les filtres (poste, projet) avec l'entête du tableau
+	actions : modifier, supprimer, affecter, consulter
+	consulter : modal qui affiche les détails de la personne + matériels affecctés à la personne (refAffectation, matériels)
+	affecter : modal qui ouvre un formulaire pour affecter des matériels "Disponible" à la personne (un champ select qui affiche les matériels disponibles avec un filtre par catégorie au dessus, un bouton + pour ajouter un nouveau groupe de champ)
+

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2025-09-01" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3316" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:6" id="gantt-chart">
+        <field id="tpd15" name="Notes" width="20" order="-1"/>
+        <field id="tpd3" name="Nom" width="200" order="0"/>
+        <field id="tpd4" name="Date de début" width="75" order="1"/>
+        <field id="tpd5" name="Date de fin" width="75" order="2"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#ccccff #9999ff]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="5afc80db93514cee9d5edd37050b131e" name="Intégration à l'entreprise" color="#9999ff" shape="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" meeting="false" start="2025-09-01" duration="5" complete="4" expand="true">
+            <depend id="1" type="2" difference="0" hardness="Rubber"/>
+            <depend id="9" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="9" uid="19401963e8034a4d80cdde566437f3ca" name="Formation initiale" color="#ccccff" meeting="false" start="2025-09-01" duration="1" complete="0" expand="true">
+            <depend id="10" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="10" uid="6560cd94bf6c44c1919bcb03b61a8d32" name="Introduction de l'entreprise" color="#ccccff" meeting="false" start="2025-09-02" duration="3" complete="0" expand="true">
+            <depend id="11" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="11" uid="89722ae01ca44e38ac4d5a6f52fd888d" name="Obtention du thème" color="#ccccff" meeting="false" start="2025-09-05" duration="1" complete="0" expand="true">
+            <depend id="1" type="2" difference="0" hardness="Strong"/>
+            <depend id="12" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="1" uid="758286c4f9f84a8e9da17839382208cb" name="Analyse et cadrage" color="#9999ff" meeting="false" start="2025-09-08" duration="5" complete="0" expand="true">
+            <depend id="2" type="2" difference="0" hardness="Rubber"/>
+            <depend id="3" type="2" difference="0" hardness="Rubber"/>
+            <depend id="12" type="1" difference="0" hardness="Strong"/>
+            <depend id="14" type="1" difference="0" hardness="Strong"/>
+            <depend id="16" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="12" uid="445a1772aa2a4727b78f4efa6455288b" name="Enquête auprès des acteurs" color="#ccccff" meeting="false" start="2025-09-08" duration="2" complete="0" expand="true">
+            <depend id="13" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="13" uid="650b0054a50e4c44b607c573ad1dad5d" name="Définition des besoins fonctionnels et non-fonctionnels" color="#ccccff" meeting="false" start="2025-09-10" duration="2" complete="0" expand="true">
+            <depend id="2" type="2" difference="0" hardness="Strong"/>
+            <depend id="14" type="2" difference="0" hardness="Rubber"/>
+            <depend id="15" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="14" uid="c9ecf2a0ede045e5b15517fbe0b25caa" name="Etudes de solutions techniques et choix des technologies" color="#ccccff" meeting="false" start="2025-09-12" duration="1" complete="0" expand="true">
+            <depend id="2" type="1" difference="0" hardness="Rubber"/>
+            <depend id="15" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="2" uid="ac10d0028ca54e78af86d3d46ce7bd39" name="Conception et modélisation" color="#9999ff" meeting="false" start="2025-09-15" duration="8" complete="0" expand="true">
+            <depend id="3" type="2" difference="0" hardness="Strong"/>
+            <depend id="4" type="2" difference="0" hardness="Strong"/>
+            <depend id="5" type="2" difference="0" hardness="Strong"/>
+            <depend id="6" type="2" difference="0" hardness="Rubber"/>
+            <depend id="15" type="1" difference="0" hardness="Strong"/>
+            <depend id="16" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="15" uid="7081daff411c41c0b5ab4f166ab14fcf" name="Définition des diagrammes UML" color="#ccccff" meeting="false" start="2025-09-15" duration="5" complete="0" expand="true">
+            <depend id="16" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="16" uid="49e29194f8624fcba820483649ad1f7a" name="Modélisation de données" color="#ccccff" meeting="false" start="2025-09-22" duration="3" complete="0" expand="true"/>
+        <task id="3" uid="28c614325bb042a7a93f9b354ce4cc2f" name="Mise en place de l'environnement de développement" color="#9999ff" meeting="false" start="2025-09-25" duration="2" complete="0" expand="true">
+            <depend id="4" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="4" uid="7811010cacc0471786e5bf776f9f2c64" name="Développement backend" color="#9999ff" meeting="false" start="2025-09-29" duration="15" complete="0" expand="true">
+            <depend id="5" type="2" difference="0" hardness="Rubber"/>
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <depend id="8" type="2" difference="0" hardness="Rubber"/>
+            <depend id="17" type="1" difference="0" hardness="Strong"/>
+            <depend id="18" type="1" difference="0" hardness="Strong"/>
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+            <depend id="23" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="17" uid="79533ab4b5474e71bc70f33dfd873a3f" name="Etablissement de la logique métier" color="#ccccff" meeting="false" start="2025-09-29" duration="10" complete="0" expand="true">
+            <depend id="18" type="2" difference="0" hardness="Strong"/>
+            <depend id="19" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="18" uid="a7ae603ed47245bc99343610c59a039c" name="Etablissement des routes API" color="#ccccff" meeting="false" start="2025-10-13" duration="3" complete="0" expand="true">
+            <depend id="19" type="2" difference="0" hardness="Strong"/>
+            <depend id="21" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="19" uid="5fb78b017a9c4a2aa79aa1a1e7e58e3c" name="Tests API" color="#ccccff" meeting="false" start="2025-10-16" duration="2" complete="0" expand="true">
+            <depend id="21" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="5" uid="fdaf11cad11e4b0d847002a73895a1e0" name="Développement frontend" color="#9999ff" meeting="false" start="2025-10-20" duration="10" complete="0" expand="true">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <depend id="8" type="2" difference="0" hardness="Rubber"/>
+            <depend id="20" type="1" difference="0" hardness="Strong"/>
+            <depend id="22" type="1" difference="0" hardness="Strong"/>
+            <depend id="23" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="20" uid="b645b1d2910a4897be4eea95fd9c7001" name="Création du squelette React" color="#ccccff" meeting="false" start="2025-10-20" duration="7" complete="0" expand="true">
+            <depend id="21" type="2" difference="0" hardness="Rubber"/>
+            <depend id="22" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="21" uid="dc1c0d6249b248208c2dc22e071a7349" name="Consomation API" color="#ccccff" meeting="false" start="2025-10-29" duration="3" complete="0" expand="true"/>
+        <task id="22" uid="7c35411533d94e029535e742fe35436c" name="Design de l'interface (Style CSS)" color="#ccccff" meeting="false" start="2025-10-20" duration="10" complete="0" expand="true"/>
+        <task id="6" uid="eae39fbf619f435cbe57222564f1b833" name="Tests et corrections" color="#9999ff" meeting="false" start="2025-11-03" duration="5" complete="0" expand="true">
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <depend id="8" type="2" difference="0" hardness="Strong"/>
+            <depend id="23" type="1" difference="0" hardness="Strong"/>
+            <depend id="25" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="23" uid="b780eb7cd86b4b038db4761bab7ce25f" name="Tests fonctionnels" color="#ccccff" meeting="false" start="2025-11-03" duration="2" complete="0" expand="true">
+            <depend id="25" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="25" uid="780922e34ab240c2bcf9a6dcd4984048" name="Correction de bug et ajustement de UI/UX" color="#ccccff" meeting="false" start="2025-11-05" duration="3" complete="0" expand="true">
+            <depend id="26" type="2" difference="0" hardness="Rubber"/>
+        </task>
+        <task id="7" uid="2bf5ba58bbbc4e9187b98540cc97626d" name="Finalisation" color="#9999ff" meeting="false" start="2025-11-10" duration="5" complete="0" expand="true">
+            <depend id="8" type="2" difference="0" hardness="Strong"/>
+            <depend id="26" type="1" difference="0" hardness="Strong"/>
+        </task>
+        <task id="26" uid="f235a4fc58784c27943e1bc0de0b7b44" name="Nettoyage" color="#ccccff" meeting="false" start="2025-11-10" duration="5" complete="0" expand="true">
+            <depend id="8" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="8" uid="913af3dc39f64ec8a00444bb33ad1516" name="Déploiement et remise" color="#9999ff" meeting="false" start="2025-11-17" duration="5" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

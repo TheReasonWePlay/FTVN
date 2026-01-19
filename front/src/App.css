@@ -1,0 +1,165 @@
+/* ====== Palette de couleur ====== */
+:root {
+    --global-bg: #e6e9ed;
+    --element-bg: #ffffff;
+    --border-color: #938a83;
+    --text-color: #11120d;
+    --light-text-color: #50524e;
+    --title-color: #2f3b52;
+    --btn-text: #ffffff;
+    --red-bg: #fbe6e8;
+    --red-text: #842127;
+    --red-highlight: #e65a62;
+    --red-btn: #dd3a44;
+    --red-hover: #c8323b;
+    --orange-bg: #fdb38d;
+    --orange-text: #a04212;
+    --orange-highlight: #ffb66d;
+    --orange-btn: #ff8840;
+    --orange-hover: #e66b00;
+    --yellow-bg: #fff3b0;
+    --yellow-text: #7a5c00;
+    --yellow-highlight: #ffe066;
+    --yellow-btn: #ffd500;
+    --yellow-btn-text: #1e1f23;
+    --yellow-hover: #ffbf00;
+    --green-bg: #d4f7dc;
+    --green-text: #1b5e20;
+    --green-highlight: #66c67b;
+    --green-btn: #4caf50;
+    --green-hover: #388e3c;
+    --teal-bg: #25e2cc;
+    --teal-text: #0c4c45;
+    --teal-highlight: #19b5a2;
+    --teal-btn: #1ecfba;
+    --teal-hover: #1abfae;
+    --dark-blue: #003d5b;
+    --dark-blue-text: #002535;
+    --dark-blue-highlight: #0a577a;
+    --dark-blue-btn: #005b87;
+    --dark-blue-hover: #00486a;
+    --blue-bg: #d7ebff;
+    --blue-text: #0c3c66;
+    --blue-highlight: #66b2ff;
+    --blue-btn: #3399ff;
+    --blue-hover: #007acc;
+    --purple-bg: #f0e0ff;
+    --purple-text: #4b0082;
+    --purple-highlight: #b266ff;
+    --purple-btn: #8a2be2;
+    --purple-hover: #6a1b9a;
+    --pink-bg: #ffe6f0;
+    --pink-text: #b8005d;
+    --pink-highlight: #ff80b3;
+    --pink-btn: #ff4da6;
+    --pink-hover: #e6008c;
+}
+
+.dark {
+    --global-bg: #1e1f23;
+    --element-bg: #2a2c33;
+    --border-color: #555559;
+    --text-color: #e6e6e6;
+    --light-text-color: #a0a0a0;
+    --title-color: #ffffff;
+    --btn-text: #1e1f23;
+    --red-bg: #4a1518;
+    --red-text: #ffb7bc;
+    --red-highlight: #b62830;
+    --red-btn: #dd3a44;
+    --red-hover: #c12e37;
+    --orange-bg: #3b1e0d;
+    --orange-text: #ffb06a;
+    --orange-highlight: #ff944d;
+    --orange-btn: #ff8840;
+    --orange-hover: #ff6f1a;
+    --yellow-bg: #3b2e0a;
+    --yellow-text: #ffeb99;
+    --yellow-highlight: #ffdd57;
+    --yellow-btn: #ffd500;
+    --yellow-btn-text: #1e1f23;
+    --yellow-hover: #ffbf00;
+    --green-bg: #1a2a1a;
+    --green-text: #b8f2c5;
+    --green-highlight: #66c67b;
+    --green-btn: #4caf50;
+    --green-hover: #388e3c;
+    --teal-bg: #158f80;
+    --teal-text: #7ff4e3;
+    --teal-highlight: #0e6f62;
+    --teal-btn: #17a99b;
+    --teal-hover: #139689;
+    --dark-blue-bg: #0a2538;
+    --dark-blue-text: #9cc7e3;
+    --dark-blue-highlight: #0d3f59;
+    --dark-blue-btn: #0f4f72;
+    --dark-blue-hover: #0c3d57;
+    --blue-bg: #0f1f2f;
+    --blue-text: #a3d4ff;
+    --blue-highlight: #66b2ff;
+    --blue-btn: #3399ff;
+    --blue-hover: #007acc;
+    --purple-bg: #1b102b;
+    --purple-text: #d8b3ff;
+    --purple-highlight: #b266ff;
+    --purple-btn: #8a2be2;
+    --purple-hover: #6a1b9a;
+    --pink-bg: #2b0f1b;
+    --pink-text: #ffb3d1;
+    --pink-highlight: #ff80b3;
+    --pink-btn: #ff4da6;
+    --pink-hover: #e6008c;
+}
+
+/*---------------Style générale de l'application---------------*/
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+input, input:focus {
+  border: none;
+  cursor: text;
+  color: var(--text-color);
+}
+
+input,
+textarea,
+select {
+    color: var(--text-color);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+input::placeholder {
+    color: var(--light-text-color); /* couleur du placeholder (ex: "Enter your name") */
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.centered-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*----------Pages styles---------*/
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--global-bg);
+    color: var(--text-color);
+}

@@ -1,0 +1,94 @@
+backend/
+├── package.json
+├── tsconfig.json
+├── .gitignore
+├── server.ts
+├── app.ts                          → connexion à MySQL
+├── conndb.ts  
+│
+├── src/                 
+│   │
+│   ├── routes/
+│   │   ├── materiel-routes.ts       → routes CRUD matériel
+│   │   ├── categorie-routes.ts      → routes CRUD catégorie
+│   │   ├── affectation-routes.ts    → routes CRUD affectation
+│   │   ├── salle-routes.ts
+│   │   ├── utilisateur-routes.ts
+│   │   └── auth-routes.ts           → login, logout
+│   │
+│   ├── crud/
+│   │   ├── materiel-crud.ts        → CRUD et type 
+│   │   ├── categorie-crud.ts
+│   │   ├── affectation-crud.ts
+│   │   ├── salle-crud.ts
+│   │   ├── utilisateur-crud.ts
+│   │   └── auth-crud.ts
+│   │
+│   ├── middlewares/
+│   │   ├── authMiddleware.ts       → vérifie le token et le rôle
+│   │   └── errorHandler.ts         → gestion globale des erreurs
+│   │
+│   ├── utilitaires/
+│   │   ├── jwtHelper.ts            → génération / vérif de token JWT
+│   │   └── passwordHelper.ts       → hashage / vérif des mots de passe
+│
+└── README.md
+
+
+frontend/
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── public/
+│   └── index.html
+│
+└── src/
+    ├── main.tsx
+    ├── App.tsx
+    │
+    ├── api/
+    │   ├── apiClient.ts
+    │   ├── materielApi.ts
+    │   ├── categorieApi.ts
+    │   ├── affectationApi.ts
+    │   └── authApi.ts
+    │
+    ├── components/
+    │   ├── Header.tsx
+    │   ├── Sidebar.tsx
+    │   ├── ProtectedRoute.tsx
+    │   ├── MaterielForm.tsx
+    │   ├── MaterielList.tsx
+    │   ├── CategorieForm.tsx
+    │   ├── CategorieList.tsx
+    │   ├── AffectationForm.tsx
+    │   └── AffectationList.tsx
+    │
+    ├── pages/
+    │   ├── Login.tsx
+    │   ├── DashboardAdmin.tsx
+    │   ├── DashboardUser.tsx
+    │   ├── MaterielPage.tsx
+    │   ├── CategoriePage.tsx
+    │   ├── AffectationPage.tsx
+    │   ├── RapportPage.tsx
+    │   └── HistoriquePage.tsx
+    │
+    ├── context/
+    │   └── AuthContext.tsx
+    │
+    ├── types/
+    │   ├── Materiel.ts
+    │   ├── Categorie.ts
+    │   ├── Affectation.ts
+    │   └── User.ts
+    │
+    ├── styles/
+    │   ├── global.css
+    │   ├── login.css
+    │   ├── dashboard.css
+    │   └── forms.css
+    │
+    └── utils/
+        ├── authHelper.ts
+        └── formatDate.ts

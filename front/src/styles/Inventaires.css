@@ -1,0 +1,1057 @@
+/* ====== Variable de thème ====== */
+
+
+/* Inventaires Page Styles */
+.inventaires-container {
+  min-height: 100vh;
+  background-color: var(--bg-color, #f5f5f5);
+  color: var(--text-color, #333);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.inventaires-container.dark {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --element-bg: #2d2d2d;
+  --border-color: #404040;
+  --hover-bg: #3d3d3d;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+.inventaires-container.light {
+  --bg-color: #f5f5f5;
+  --text-color: #333;
+  --element-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --hover-bg: #f8f8f8;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.inventaires-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--element-bg);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--hover-bg);
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--title-color, #2563eb);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  background-color: var(--element-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Information Cards */
+.info-cards-section {
+  padding: 1.5rem 2rem;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.info-card {
+  background-color: var(--element-bg);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px var(--shadow);
+}
+
+.info-card h3 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--title-color, #2563eb);
+}
+
+/* Search and Filters */
+.search-filters-section {
+  padding: 0 2rem 1.5rem;
+}
+
+.search-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  background-color: var(--element-bg);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+.search-group {
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-container svg {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+.search-input-container input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input-container input:focus {
+  outline: none;
+  border-color: var(--title-color, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.date-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-input-container svg {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.date-input-container input {
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.date-input-container input:focus {
+  outline: none;
+  border-color: var(--title-color, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--title-color, #2563eb);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Table */
+.table-section {
+  padding: 0 2rem 2rem;
+}
+
+.table-container {
+  background-color: var(--element-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.inventaires-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.inventaires-table th {
+  background-color: var(--hover-bg);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.inventaires-table th:hover {
+  background-color: var(--element-bg);
+}
+
+.inventaires-table th input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
+
+.inventaires-table th input:focus {
+  outline: none;
+  border-color: var(--title-color, #2563eb);
+}
+
+.inventaires-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.inventaires-table tbody tr:hover {
+  background-color: var(--hover-bg);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-buttons button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.action-buttons button:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--element-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination button {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: var(--hover-bg);
+  border-color: var(--title-color, #2563eb);
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: var(--element-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: var(--hover-bg);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.cancel-button {
+  background-color: var(--gray-btn);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: var(--gray-hover);
+}
+
+.submit-button {
+  background-color: var(--blue-btn);
+  color: var(--btn-text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: var(--blue-btn);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Modal specific styles for Confirmer Inventaire */
+.detail-section h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.detail-section p {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.materiels-count-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.materiels-count-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--hover-bg);
+  border-radius: 0.375rem;
+}
+
+.confirm-checkbox {
+  background: none;
+  border: none;
+  color: var(--title-color, #2563eb);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.confirm-checkbox:hover {
+  background-color: var(--element-bg);
+}
+
+.categorie-name {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.count {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.anomalie-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 0.375rem;
+  color: #92400e;
+}
+
+.inventaires-container.dark .anomalie-message {
+  background-color: #451a03;
+  border-color: #d97706;
+  color: #fbbf24;
+}
+
+/* Modal specific styles for consulter modal */
+.consulter-modal {
+  width: 700px;
+  max-width: 90vw;
+}
+
+.consulter-modal .modal-content {
+  max-width: 800px;
+}
+
+.inventaire-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-item label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.detail-item span {
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
+
+.materiels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.materiel-item {
+  padding: 0.75rem;
+  background-color: var(--hover-bg);
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-color);
+}
+
+.materiel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.num-serie {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-color);
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-présent {
+  background-color: var(--green-bg);
+  color: var(--green-text);
+}
+
+.status-manquant {
+  background-color: var(--red-bg);
+  color: var(--red-text);
+}
+
+.Status-en-panne {
+  background-color: var(--orange-bg);
+  color: var(--orange-text);
+}
+
+.status-default {
+  background-color: var(--gray-bg);
+  color: var(--gray-text);
+}
+
+.materiel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.materiel-details span {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.categorie {
+  font-style: italic;
+}
+
+/* Modal specific styles for ModalInventaire */
+.inventaire-modal {
+  width: 700px;
+  max-width: 90vw;
+}
+
+.salle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.salle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ref-salle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--title-color);
+}
+
+.nom-salle {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.assets-section {
+  margin-bottom: 1.5rem;
+}
+
+.assets-section h3 {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.assets-section p {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.asset-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.asset-group {
+  background-color: var(--hover-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.category-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
+}
+
+.brands-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.brand-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background-color: var(--element-bg);
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-color);
+}
+
+.confirm-checkbox {
+  background: none;
+  border: none;
+  color: var(--title-color, #2563eb);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.confirm-checkbox:hover {
+  background-color: var(--hover-bg);
+}
+
+.brand-name {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.brand-count {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.observation-section {
+  margin-top: 1.5rem;
+}
+
+.observation-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.observation-section textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 0.875rem;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.observation-section textarea:focus {
+  outline: none;
+  border-color: var(--title-color, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--title-color, #2563eb);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inventaires-header {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .breadcrumb {
+    padding: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .info-cards-section,
+  .search-filters-section,
+  .table-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .search-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-group {
+    min-width: auto;
+  }
+
+  .date-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .date-filters span {
+    display: none;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .inventaires-table {
+    min-width: 600px;
+  }
+
+  .modal-content {
+    width: 95vw;
+    max-height: 95vh;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .cancel-button,
+  .submit-button {
+    width: 100%;
+  }
+
+  .inventaire-modal {
+    width: 95vw;
+  }
+
+  .salle-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .asset-groups {
+    gap: 0.75rem;
+  }
+
+  .brand-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventaires-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .header-left {
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .search-filters {
+    padding: 1rem;
+  }
+
+  .add-button {
+    justify-content: center;
+  }
+
+  .asset-group {
+    padding: 0.75rem;
+  }
+
+  .brands-list {
+    gap: 0.375rem;
+  }
+}
+
+/* ModalConsulterInventaire specific styles */
+.consulter-modal {
+  width: 800px;
+  max-width: 95vw;
+}
+
+.consulter-modal .modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.inventaire-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-section {
+  background-color: var(--element-bg);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.detail-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-item label {
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
+
+.detail-item span {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background-color: var(--hover-bg);
+  border-radius: 0.25rem;
+}
+
+.materiels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.materiel-item {
+  background-color: var(--hover-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.materiel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.materiel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.num-serie {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.materiel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.materiel-details span {
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
+
+.categorie {
+  color: var(--text-color);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Responsive design for consulter modal */
+@media (max-width: 768px) {
+  .consulter-modal {
+    width: 95vw;
+    margin: 1rem;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .materiel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .materiels-list {
+    max-height: 300px;
+  }
+}

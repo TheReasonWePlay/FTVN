@@ -1,0 +1,190 @@
+/* Dialog Component Styles */
+
+.dialog {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 300px;
+  max-width: 400px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.dialog.visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.dialog-content {
+  background: var(--element-bg);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+}
+
+.dialog-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dialog.success .dialog-icon {
+  color: var(--green-btn);
+}
+
+.dialog.error .dialog-icon {
+  color: var(--red-btn);
+}
+
+.dialog-message {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-color);
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.dialog-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  color: var(--light-text-color);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-top: -2px;
+  margin-right: -2px;
+}
+
+.dialog-close:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Dark mode adjustments */
+.dark .dialog-content {
+  background: var(--element-bg);
+  border-color: var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dark .dialog-message {
+  color: var(--text-color);
+}
+
+.dark .dialog-close {
+  color: var(--light-text-color);
+}
+
+.dark .dialog-close:hover {
+  background: var(--border-color);
+  color: var(--text-color);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .dialog {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+    transform: translateY(-100%);
+  }
+
+  .dialog.visible {
+    transform: translateY(0);
+  }
+
+  .dialog-content {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .dialog-message {
+    font-size: 13px;
+  }
+
+  .dialog-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Animation keyframes for more complex animations if needed */
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dialogSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Apply animations */
+.dialog.visible {
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+.dialog:not(.visible) {
+  animation: dialogSlideOut 0.3s ease-in;
+}
+
+/* Success dialog specific styling */
+.dialog.success {
+  --dialog-accent: var(--green-btn);
+}
+
+.dialog.success .dialog-content {
+  border-left: 4px solid var(--dialog-accent);
+}
+
+/* Error dialog specific styling */
+.dialog.error {
+  --dialog-accent: var(--red-btn);
+}
+
+.dialog.error .dialog-content {
+  border-left: 4px solid var(--dialog-accent);
+}
+
+/* Focus states for accessibility */
+.dialog-close:focus {
+  outline: 2px solid var(--blue-btn);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .dialog {
+    transition: none;
+  }
+
+  .dialog.visible,
+  .dialog:not(.visible) {
+    animation: none;
+  }
+}

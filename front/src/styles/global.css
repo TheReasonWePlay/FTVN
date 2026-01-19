@@ -1,0 +1,481 @@
+/* Color palette variables */
+
+/* ========== LIGHT THEME VARIABLES ========== */
+:root {
+    /* --- General / Global --- */
+    --global-bg: #e6e9ed;
+    --element-bg: #ffffff;
+    --border-color: #938a83;
+    --text-color: #11120d;
+    --light-text-color: #50524e;
+    --title-color: #2f3b52;
+    --btn-text: #ffffff;
+
+    /* --- Gray Palette --- */
+    --gray-bg: #f5f5f5;
+    --gray-alt-bg: #e6e6e6;
+    --gray-text: #505050;
+    --gray-border: #b0b0b0;
+    --gray-btn: #a0a0a0;
+    --gray-hover: #888888;
+
+    /* --- Red Palette --- */
+    --red-bg: #fbe6e8;
+    --red-text: #842127;
+    --red-highlight: #e65a62;
+    --red-btn: #dd3a44;
+    --red-hover: #c8323b;
+
+    /* --- Orange Palette --- */
+    --orange-bg: #fdb38d;
+    --orange-text: #a04212;
+    --orange-highlight: #ffb66d;
+    --orange-btn: #ff8840;
+    --orange-hover: #e66b00;
+
+    /* --- Yellow Palette --- */
+    --yellow-bg: #fff3b0;
+    --yellow-text: #7a5c00;
+    --yellow-highlight: #ffe066;
+    --yellow-btn: #ffd500;
+    --yellow-btn-text: #1e1f23;
+    --yellow-hover: #ffbf00;
+
+    /* --- Green Palette --- */
+    --green-bg: #d4f7dc;
+    --green-text: #1b5e20;
+    --green-highlight: #66c67b;
+    --green-btn: #4caf50;
+    --green-hover: #388e3c;
+
+    /* --- Teal Palette --- */
+    --teal-bg: #25e2cc;
+    --teal-text: #0c4c45;
+    --teal-highlight: #19b5a2;
+    --teal-btn: #1ecfba;
+    --teal-hover: #1abfae;
+
+    /* --- Dark Blue Palette --- */
+    --dark-blue-bg: #003d5b;
+    --dark-blue-text: #002535;
+    --dark-blue-highlight: #0a577a;
+    --dark-blue-btn: #005b87;
+    --dark-blue-hover: #00486a;
+
+    /* --- Blue Palette --- */
+    --blue-bg: #d7ebff;
+    --blue-text: #0c3c66;
+    --blue-highlight: #66b2ff;
+    --blue-btn: #3399ff;
+    --blue-hover: #007acc;
+
+    /* --- Purple Palette --- */
+    --purple-bg: #f0e0ff;
+    --purple-text: #4b0082;
+    --purple-highlight: #b266ff;
+    --purple-btn: #8a2be2;
+    --purple-hover: #6a1b9a;
+
+    /* --- Pink Palette --- */
+    --pink-bg: #ffe6f0;
+    --pink-text: #b8005d;
+    --pink-highlight: #ff80b3;
+    --pink-btn: #ff4da6;
+    --pink-hover: #e6008c;
+}
+
+/* ========== DARK THEME VARIABLES ========== */
+.dark {
+    /* --- General / Global --- */
+    --global-bg: #1e1f23;
+    --element-bg: #2a2c33;
+    --border-color: #555559;
+    --text-color: #e6e6e6;
+    --light-text-color: #a0a0a0;
+    --title-color: #ffffff;
+    --btn-text: #1e1f23;
+
+    /* --- Gray Palette --- */
+    --gray-bg: #2a2c33;
+    --gray-alt-bg: #3a3c44;
+    --gray-text: #b0b0b0;
+    --gray-border: #666666;
+    --gray-btn: #888888;
+    --gray-hover: #aaaaaa;
+
+    /* --- Red Palette --- */
+    --red-bg: #4a1518;
+    --red-text: #ffb7bc;
+    --red-highlight: #b62830;
+    --red-btn: #dd3a44;
+    --red-hover: #c12e37;
+
+    /* --- Orange Palette --- */
+    --orange-bg: #3b1e0d;
+    --orange-text: #ffb06a;
+    --orange-highlight: #ff944d;
+    --orange-btn: #ff8840;
+    --orange-hover: #ff6f1a;
+
+    /* --- Yellow Palette --- */
+    --yellow-bg: #3b2e0a;
+    --yellow-text: #ffeb99;
+    --yellow-highlight: #ffdd57;
+    --yellow-btn: #ffd500;
+    --yellow-btn-text: #1e1f23;
+    --yellow-hover: #ffbf00;
+
+    /* --- Green Palette --- */
+    --green-bg: #1a2a1a;
+    --green-text: #b8f2c5;
+    --green-highlight: #66c67b;
+    --green-btn: #4caf50;
+    --green-hover: #388e3c;
+
+    /* --- Teal Palette --- */
+    --teal-bg: #158f80;
+    --teal-text: #7ff4e3;
+    --teal-highlight: #0e6f62;
+    --teal-btn: #17a99b;
+    --teal-hover: #139689;
+
+    /* --- Dark Blue Palette --- */
+    --dark-blue-bg: #0a2538;
+    --dark-blue-text: #9cc7e3;
+    --dark-blue-highlight: #0d3f59;
+    --dark-blue-btn: #0f4f72;
+    --dark-blue-hover: #0c3d57;
+
+    /* --- Blue Palette --- */
+    --blue-bg: #0f1f2f;
+    --blue-text: #a3d4ff;
+    --blue-highlight: #66b2ff;
+    --blue-btn: #3399ff;
+    --blue-hover: #007acc;
+
+    /* --- Purple Palette --- */
+    --purple-bg: #1b102b;
+    --purple-text: #d8b3ff;
+    --purple-highlight: #b266ff;
+    --purple-btn: #8a2be2;
+    --purple-hover: #6a1b9a;
+
+    /* --- Pink Palette --- */
+    --pink-bg: #2b0f1b;
+    --pink-text: #ffb3d1;
+    --pink-highlight: #ff80b3;
+    --pink-btn: #ff4da6;
+    --pink-hover: #e6008c;
+}
+
+
+/* Global styles */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--global-bg);
+  color: var(--text-color);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--title-color);
+  margin: 0;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+/* Primary buttons */
+.btn-primary {
+  background-color: var(--blue-btn);
+  color: var(--btn-text);
+}
+.btn-primary:hover {
+  background-color: var(--blue-hover);
+}
+
+/* Success buttons */
+.btn-success {
+  background-color: var(--green-btn);
+  color: var(--btn-text);
+}
+.btn-success:hover {
+  background-color: var(--green-hover);
+}
+
+/* Warning buttons */
+.btn-warning {
+  background-color: var(--yellow-btn);
+  color: var(--yellow-btn-text);
+}
+.btn-warning:hover {
+  background-color: var(--yellow-hover);
+}
+
+/* Danger buttons */
+.btn-danger {
+  background-color: var(--red-btn);
+  color: var(--btn-text);
+}
+.btn-danger:hover {
+  background-color: var(--red-hover);
+}
+
+/* Info buttons */
+.btn-info {
+  background-color: var(--teal-btn);
+  color: var(--btn-text);
+}
+.btn-info:hover {
+  background-color: var(--teal-hover);
+}
+
+/* Forms */
+form {
+  background-color: var(--element-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+input, textarea, select {
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--blue-highlight);
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  background-color: var(--global-bg);
+  color: var(--title-color);
+  font-weight: 600;
+}
+
+.filter-th {
+  cursor: pointer;
+}
+
+/* Modals */
+.modal {
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.5rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.badge-success {
+  background-color: var(--green-bg);
+  color: var(--green-text);
+}
+
+.badge-warning {
+  background-color: var(--yellow-bg);
+  color: var(--yellow-text);
+}
+
+.badge-danger {
+  background-color: var(--red-bg);
+  color: var(--red-text);
+}
+
+.badge-info {
+  background-color: var(--blue-bg);
+  color: var(--blue-text);
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid;
+}
+
+.alert-success {
+  background-color: var(--green-bg);
+  color: var(--green-text);
+  border-color: var(--green-highlight);
+}
+
+.alert-warning {
+  background-color: var(--yellow-bg);
+  color: var(--yellow-text);
+  border-color: var(--yellow-highlight);
+}
+
+.alert-danger {
+  background-color: var(--red-bg);
+  color: var(--red-text);
+  border-color: var(--red-highlight);
+}
+
+.alert-info {
+  background-color: var(--blue-bg);
+  color: var(--blue-text);
+  border-color: var(--blue-highlight);
+}
+
+/* Dashboard components */
+.dashboard-card {
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card h3 {
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--global-bg);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Header and Footer placeholders */
+header, footer {
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem;
+}
+
+footer {
+  border-top: 1px solid var(--border-color);
+  border-bottom: none;
+}
+
+/* Dark mode overrides */
+.dark body {
+  background-color: var(--global-bg);
+  color: var(--text-color);
+}
+
+.dark .dashboard-card,
+.dark form,
+.dark .modal,
+.dark table {
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.dark th {
+  background-color: var(--global-bg);
+  color: var(--title-color);
+}
+
+.dark input, .dark textarea, .dark select {
+  background-color: var(--element-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+/* Additional variables if needed */
+:root {
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --shadow: rgba(255, 255, 255, 0.1);
+}
