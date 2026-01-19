@@ -9,8 +9,7 @@ import {
   BarChart3,
   PieChart,
   TrendingUp,
-  Pin,
-  Users
+  Pin
 } from 'lucide-react';
 import { Doughnut, Bar, Line } from 'react-chartjs-2';
 import {
@@ -73,7 +72,6 @@ const Dashboard: React.FC = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === 'dark';
 
-  const [currentPage, setCurrentPage] = useState('Tableau de bord');
   const [breadcrumb, setBreadcrumb] = useState(['Accueil', 'Tableau de bord']);
   const [dashboardState, setDashboardState] = useState<DashboardState>({
     data: {
@@ -139,7 +137,6 @@ const Dashboard: React.FC = () => {
     if (breadcrumb.length > 1) {
       const newBreadcrumb = breadcrumb.slice(0, -1);
       setBreadcrumb(newBreadcrumb);
-      setCurrentPage(newBreadcrumb[newBreadcrumb.length - 1]);
     } else {
       // Refresh page if on main dashboard
       fetchData();
@@ -214,19 +211,29 @@ const Dashboard: React.FC = () => {
 
   // Prepare chart data
   const donutData = {
-    labels: Object.keys(dashboardData.materielsByStatus),
+    labels: Array.isArray(dashboardData.materielsByStatus)
+      ? dashboardData.materielsByStatus.map(item => item.statut)
+      : Object.keys(dashboardData.materielsByStatus),
     datasets: [{
-      data: Object.values(dashboardData.materielsByStatus),
-      backgroundColor: Object.keys(dashboardData.materielsByStatus).map(getStatusColor),
+      data: Array.isArray(dashboardData.materielsByStatus)
+        ? dashboardData.materielsByStatus.map(item => item.count)
+        : Object.values(dashboardData.materielsByStatus),
+      backgroundColor: Array.isArray(dashboardData.materielsByStatus)
+        ? dashboardData.materielsByStatus.map(item => getStatusColor(item.statut))
+        : Object.keys(dashboardData.materielsByStatus).map(getStatusColor),
       borderWidth: 1,
     }],
   };
 
   const barData = {
-    labels: Object.keys(dashboardData.materielsByCategory),
+    labels: Array.isArray(dashboardData.materielsByCategory)
+      ? dashboardData.materielsByCategory.map(item => item.categorie)
+      : Object.keys(dashboardData.materielsByCategory),
     datasets: [{
       label: 'Nombre de matériels',
-      data: Object.values(dashboardData.materielsByCategory),
+      data: Array.isArray(dashboardData.materielsByCategory)
+        ? dashboardData.materielsByCategory.map(item => item.count)
+        : Object.values(dashboardData.materielsByCategory),
       backgroundColor: 'var(--element-bg)',
       borderWidth: 1,
     }],
@@ -254,6 +261,13 @@ const Dashboard: React.FC = () => {
         data: dashboardData.monthlyEvolution.map(d => d.inventaires),
         borderColor: '#0a577a',
         backgroundColor: '#0a577a',
+        tension: 0.1,
+      },
+      {
+        label: 'Ajout de matériels',
+        data: dashboardData.monthlyEvolution.map(d => d.materiels || 0),
+        borderColor: '#8B5CF6',
+        backgroundColor: '#8B5CF6',
         tension: 0.1,
       },
     ],
@@ -284,44 +298,56 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className='stats-card'>
-                <div className="info-card clickable count-card" onClick={handleNavigateToMateriels}>
-                  <div className="card-icon">
-                    <BarChart3 size={24} />
-                  </div>
-                  <div className="card-content">
-                    <h3>Par Statut</h3>
-                    <div className="status-breakdown">
-                    {Object.entries(dashboardData.materielsByStatus).map(([_, value]) => (
-                      <div key={value.statut} className="status-item">
-                        <span className={`status-dot ${getStatusClass(value.statut)}`}></span>
-                        <span>{value.statut}: {value.count}</span>
-                      </div>
-                    ))}
-                    </div>
-                  </div>
+              <div className="info-card clickable count-card" onClick={handleNavigateToMateriels}>
+                <div className="card-icon">
+                  <BarChart3 size={24} />
                 </div>
-
-                <div className="info-card clickable  count-card" onClick={handleNavigateToMateriels}>
-                  <div className="card-icon">
-                    <PieChart size={24} />
-                  </div>
-                  <div className="card-content">
-                    <h3>Par Catégorie</h3>
-                    <div className="category-breakdown">
-                      {Object.entries(dashboardData.materielsByCategory).map(([category, count]) => (
-                        <div key={category} className="category-item">
-                          <span>{category}: {count.count}</span>
-                        </div>
-                      ))}
-                    </div>
+                <div className="card-content">
+                  <h3>Par Statut</h3>
+                  <div className="status-breakdown">
+                    {Array.isArray(dashboardData.materielsByStatus)
+                      ? dashboardData.materielsByStatus.map((item) => (
+                          <div key={item.statut} className="status-item">
+                            <span className={`status-dot ${getStatusClass(item.statut)}`}></span>
+                            <span>{item.statut}: {item.count}</span>
+                          </div>
+                        ))
+                      : Object.entries(dashboardData.materielsByStatus).map(([status, count]) => (
+                          <div key={status} className="status-item">
+                            <span className={`status-dot ${getStatusClass(status)}`}></span>
+                            <span>{status}: {count}</span>
+                          </div>
+                        ))
+                    }
                   </div>
                 </div>
               </div>
-              
+
+              <div className="info-card clickable count-card" onClick={handleNavigateToMateriels}>
+                <div className="card-icon">
+                  <PieChart size={24} />
+                </div>
+                <div className="card-content">
+                  <h3>Par Catégorie</h3>
+                  <div className="category-breakdown">
+                    {Array.isArray(dashboardData.materielsByCategory)
+                      ? dashboardData.materielsByCategory.map((item) => (
+                          <div key={item.categorie} className="category-item">
+                            <span>{item.categorie}: {item.count}</span>
+                          </div>
+                        ))
+                      : Object.entries(dashboardData.materielsByCategory).map(([category, count]) => (
+                          <div key={category} className="category-item">
+                            <span>{category}: {count}</span>
+                          </div>
+                        ))
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="chart-container">
+            <div className="chart-container donut-chart">
               <h3>Répartition par Statut</h3>
               <Doughnut
                 data={donutData}
@@ -348,7 +374,7 @@ const Dashboard: React.FC = () => {
 
           {/* Section 2: Bar Chart and Line Chart */}
           <section className="dashboard-section">
-            <div className="chart-container">
+            <div className="chart-container bar-chart">
               <h3>Matériels par Catégorie</h3>
               <Bar
                 data={barData}
@@ -376,7 +402,7 @@ const Dashboard: React.FC = () => {
               />
             </div>
 
-            <div className="chart-container">
+            <div className="chart-container line-chart">
               <h3>Évolution des Mouvements (6 derniers mois)</h3>
               {dashboardData.monthlyEvolution.length > 0 ? (
                 <Line
@@ -438,7 +464,7 @@ const Dashboard: React.FC = () => {
 
               <div className="counter-card clickable" onClick={handleNavigateToAffectations}>
                 <div className="counter-icon">
-                  <Users size={24} />
+                  <Pin size={24} />
                 </div>
                 <div className="counter-content">
                   <h4>Nouvelles Affectations</h4>

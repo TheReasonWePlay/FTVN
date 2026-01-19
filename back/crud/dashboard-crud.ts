@@ -93,11 +93,25 @@ export const getRecentOperations = async (req: Request, res: Response) => {
       LIMIT 5
     `) as any[];
 
+    const [materiels] = await db.query(`
+      SELECT
+        CONCAT('materiel_', numSerie) as id,
+        'ajout-materiel' as type,
+        CONCAT('Nouveau matériel ajouté: ', marque, ' ', modele) as description,
+        DATE_FORMAT(dateAjout, '%Y-%m-%d') as date,
+        'Ajouté' as status
+      FROM Materiel
+      WHERE dateAjout IS NOT NULL
+      ORDER BY dateAjout DESC
+      LIMIT 5
+    `) as any[];
+
     // Combine and sort all operations by date
     const allOperations = [
       ...incidents,
       ...affectations,
-      ...inventaires
+      ...inventaires,
+      ...materiels
     ].sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     // Return only the most recent 10 operations
@@ -141,6 +155,16 @@ export const getMonthlyEvolution = async (req: Request, res: Response) => {
       ORDER BY month
     `) as any[];
 
+    const [materiels] = await db.query(`
+      SELECT
+        DATE_FORMAT(dateAjout, '%Y-%m') as month,
+        COUNT(*) as count
+      FROM Materiel
+      WHERE dateAjout >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+      GROUP BY DATE_FORMAT(dateAjout, '%Y-%m')
+      ORDER BY month
+    `) as any[];
+
     // Generate last 6 months
     const months = [];
     const now = new Date();
@@ -154,13 +178,15 @@ export const getMonthlyEvolution = async (req: Request, res: Response) => {
       const affectation = (affectations as any[]).find(a => a.month === month)?.count || 0;
       const incident = (incidents as any[]).find(i => i.month === month)?.count || 0;
       const inventaire = (inventaires as any[]).find(inv => inv.month === month)?.count || 0;
+      const materiel = (materiels as any[]).find(m => m.month === month)?.count || 0;
 
       return {
         month,
         affectations: affectation,
         incidents: incident,
         inventaires: inventaire,
-        total: affectation + incident + inventaire
+        materiels: materiel,
+        total: affectation + incident + inventaire + materiel
       };
     });
 

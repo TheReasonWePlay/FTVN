@@ -14,7 +14,7 @@ export interface DashboardStats {
 
 export interface RecentOperation {
   id: string;
-  type: 'affectation' | 'incident' | 'inventaire';
+  type: 'affectation' | 'incident' | 'inventaire' | 'ajout-materiel';
   description: string;
   date: string;
   status: string;
@@ -43,6 +43,7 @@ export interface MonthlyEvolutionData {
   affectations: number;
   incidents: number;
   inventaires: number;
+  materiels: number;
   total: number;
 }
 
