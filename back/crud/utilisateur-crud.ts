@@ -2,7 +2,6 @@
 
 import { Request, Response } from 'express';
 import { db } from '../conndb';
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 declare global {

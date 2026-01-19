@@ -9,7 +9,7 @@ import {
     Pin,
     AlertTriangle,
     ClipboardList,
-    Settings,
+    Bolt,
     MapPin,
     Building,
     Users,
@@ -218,7 +218,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
         { path: "/rooms", label: "Salles", icon: Building },
         { path: "/positions", label: "Positions", icon: MapPin },
         { path: "/personnes", label: "Personnels", icon: IdCardLanyard },
-        { action: "profile", label: "Profil Utilisateur", icon: User },
+        //{ action: "profile", label: "Profil Utilisateur", icon: User },
     ];
 
     const navigationItems = getNavigationItems();
@@ -254,10 +254,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                     onClick={() => setSettingsOpen(!settingsOpen)}
                     title="Paramètres"
                 >
-                    <Settings size={20} />
+                    <Bolt size={20} />
                     {!isCollapsed && (
                         <>
-                            <span className="nav-label">Paramètres</span>
+                            <span className="nav-label">Structure</span>
                             <ChevronRight size={16} className="settings-chevron" />
                         </>
                     )}
@@ -265,27 +265,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                 {settingsOpen && (
                     <ul className="settings-submenu">
                         {settingsItems.map((item) => (
-                            <li key={item.path || item.action} className={`nav-item ${location.pathname === item.path ? "active" : ""}`}>
-                                {item.path ? (
-                                    <Link to={item.path} className="nav-link" title={item.label}>
-                                        <item.icon size={18} />
-                                        {!isCollapsed && <span className="nav-label">{item.label}</span>}
-                                    </Link>
-                                ) : (
-                                    <button
-                                        className="nav-link"
-                                        onClick={() => {
-                                            if (item.action === "profile") {
-                                                setProfileModalOpen(true);
-                                                setSettingsOpen(false);
-                                            }
-                                        }}
-                                        title={item.label}
-                                    >
-                                        <item.icon size={18} />
-                                        {!isCollapsed && <span className="nav-label">{item.label}</span>}
-                                    </button>
-                                )}
+                            <li key={item.path} className={`nav-item ${location.pathname === item.path ? "active" : ""}`}>
+                                <Link to={item.path} className="nav-link" title={item.label}>
+                                    <item.icon size={18} />
+                                    {!isCollapsed && <span className="nav-label">{item.label}</span>}
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -300,8 +284,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                     onClick={toggleTheme}
                     title="Changer le thème"
                 >
-                    {theme === 'light' ? <Sun size={20} /> : <Moon size={20} />}
-                    {!isCollapsed && <span className="nav-label">Thème</span>}
+                    {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                    {!isCollapsed && (
+                        <span className="nav-label">
+                            {theme === 'light' ? 'Mode sombre' : 'Mode clair'}
+                        </span>
+                    )}
                 </button>
 
                 {/* Separator */}
@@ -326,10 +314,16 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                     {userMenuOpen && (
                         <ul className="user-submenu">
                             <li>
-                                <Link to="/profil" className="user-submenu-link">
+                                <button
+                                    className="user-submenu-link"
+                                    onClick={() => {
+                                        setProfileModalOpen(true);
+                                        setUserMenuOpen(false);
+                                    }}
+                                >
                                     <User size={18} />
                                     {!isCollapsed && <span>Profil</span>}
-                                </Link>
+                                </button>
                             </li>
                             <li>
                                 <button className="user-submenu-link logout-link" onClick={handleLogout}>

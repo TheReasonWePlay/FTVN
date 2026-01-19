@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className={`layout ${isExpanded ? "expanded" : ""}`}>
+    <div className={`layout ${isExpanded ? "sidebar-expanded" : "sidebar-collapsed"}`}>
       <Sidebar onToggle={setIsExpanded} />
       <div className="main-content">
         <div className="page-content">{children}</div>

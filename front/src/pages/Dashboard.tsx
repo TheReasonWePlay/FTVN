@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
+
 import {
-  ChevronLeft,
-  Home,
   Package,
   AlertTriangle,
   ClipboardList,
@@ -28,12 +27,17 @@ import {
 } from 'chart.js';
 
 import '../styles/Dashboard.css';
+import '../styles/tableau.css';
+import '../styles/page.css';
+import '../styles/modal.css';
+
 import ErrorBoundary from '../components/ErrorBoundary';
 import LoadingState from '../components/LoadingState';
 import ErrorState from '../components/ErrorState';
 
 import { getDashboardStats, getRecentOperations, getMonthlyEvolution } from '../api/dashboard-api';
 import type { MonthlyEvolutionData, RecentOperation } from '../api/dashboard-api';
+import PageHeader from '../components/PageHeader';
 
 ChartJS.register(
   ArcElement,
@@ -144,11 +148,11 @@ const Dashboard: React.FC = () => {
 
   const getStatusColor = (status: string): string => {
     switch (status.toLowerCase()) {
-      case 'disponible': return '#10B981';
-      case 'en réparation': return '#F59E0B';
-      case 'hors service': return '#EF4444';
-      case 'en maintenance': return '#3B82F6';
-      default: return '#6B7280';
+      case 'disponible': return '#66b2ff';
+      case 'affecté': return '#19b5a2';
+      case 'en panne': return '#ffb66d';
+      case 'hors service': return '#e65a62';
+      default: return '#888888';
     }
   };
 
@@ -164,14 +168,12 @@ const Dashboard: React.FC = () => {
   const getStatusClass = (status: string): string => {
     switch (status.toLowerCase()) {
       case 'disponible': return 'available';
-      case 'en réparation': return 'repair';
+      case 'affecté': return 'affected';
+      case 'en panne': return 'repair';
       case 'hors service': return 'out-of-service';
-      case 'en maintenance': return 'maintenance';
       default: return 'unknown';
     }
   };
-
-
 
   const handleNavigateToMateriels = () => {
     navigate('/equipment');
@@ -250,8 +252,8 @@ const Dashboard: React.FC = () => {
       {
         label: 'Inventaires',
         data: dashboardData.monthlyEvolution.map(d => d.inventaires),
-        borderColor: '#F59E0B',
-        backgroundColor: '#F59E0B',
+        borderColor: '#0a577a',
+        backgroundColor: '#0a577a',
         tension: 0.1,
       },
     ],
@@ -265,36 +267,14 @@ const Dashboard: React.FC = () => {
     <ErrorBoundary>
       <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
         {/* Header */}
-        <header className="dashboard-header">
-          <div className="header-left">
-            <button className="back-button" onClick={handleBackClick} aria-label="Retour">
-              <ChevronLeft size={20} />
-            </button>
-            <h1 className="page-title">{currentPage}</h1>
-          </div>
-
-          <nav className="breadcrumb">
-            {breadcrumb.map((crumb, index) => (
-              <React.Fragment key={index}>
-                {index > 0 && <span className="breadcrumb-separator">/</span>}
-                <span className={`breadcrumb-item ${index === breadcrumb.length - 1 ? 'active' : ''}`}>
-                  {index === 0 ? (
-                    <button className="breadcrumb-home-button" onClick={() => navigate('/dashboard')} aria-label="Accueil">
-                      <Home size={16} />
-                    </button>
-                  ) : crumb}
-                </span>
-              </React.Fragment>
-            ))}
-          </nav>
-        </header>
+        <PageHeader title='Tableau de bord' onBack={handleBackClick} />
 
         {/* Main Content */}
         <main className="dashboard-content">
           {/* Section 1: Info Cards and Donut Chart */}
           <section className="dashboard-section">
             <div className="info-cards">
-              <div className="info-card clickable" onClick={handleNavigateToMateriels}>
+              <div className="info-card clickable main-card" onClick={handleNavigateToMateriels}>
                 <div className="card-icon">
                   <Package size={24} />
                 </div>
@@ -304,38 +284,41 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className="info-card clickable" onClick={handleNavigateToMateriels}>
-                <div className="card-icon">
-                  <BarChart3 size={24} />
-                </div>
-                <div className="card-content">
-                  <h3>Par Statut</h3>
-                  <div className="status-breakdown">
-                  {Object.entries(dashboardData.materielsByStatus).map(([_, value]) => (
-                    <div key={value.statut} className="status-item">
-                      <span className={`status-dot ${getStatusClass(value.statut)}`}></span>
-                      <span>{value.statut}: {value.count}</span>
-                    </div>
-                  ))}
+              <div className='stats-card'>
+                <div className="info-card clickable count-card" onClick={handleNavigateToMateriels}>
+                  <div className="card-icon">
+                    <BarChart3 size={24} />
                   </div>
-                </div>
-              </div>
-
-              <div className="info-card clickable" onClick={handleNavigateToMateriels}>
-                <div className="card-icon">
-                  <PieChart size={24} />
-                </div>
-                <div className="card-content">
-                  <h3>Par Catégorie</h3>
-                  <div className="category-breakdown">
-                    {Object.entries(dashboardData.materielsByCategory).map(([category, count]) => (
-                      <div key={category} className="category-item">
-                        <span>{category}: {count.count}</span>
+                  <div className="card-content">
+                    <h3>Par Statut</h3>
+                    <div className="status-breakdown">
+                    {Object.entries(dashboardData.materielsByStatus).map(([_, value]) => (
+                      <div key={value.statut} className="status-item">
+                        <span className={`status-dot ${getStatusClass(value.statut)}`}></span>
+                        <span>{value.statut}: {value.count}</span>
                       </div>
                     ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="info-card clickable  count-card" onClick={handleNavigateToMateriels}>
+                  <div className="card-icon">
+                    <PieChart size={24} />
+                  </div>
+                  <div className="card-content">
+                    <h3>Par Catégorie</h3>
+                    <div className="category-breakdown">
+                      {Object.entries(dashboardData.materielsByCategory).map(([category, count]) => (
+                        <div key={category} className="category-item">
+                          <span>{category}: {count.count}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+              
             </div>
 
             <div className="chart-container">

@@ -20,6 +20,7 @@ import {
 import '../styles/Materiels.css';
 import { useToast } from '../hooks/useToast';
 import { useTheme } from '../contexts/ThemeContext';
+import PageHeader from '../components/PageHeader';
 import type { Materiel } from '../types';
 
 import {
@@ -76,6 +77,11 @@ const Materiels: React.FC = () => {
       mountedRef.current = false;
     };
   }, []);
+
+  const handleBack = () => {
+    // In real app, navigate back or to dashboard
+    window.history.back();
+  };
 
   const fetchMaterielsData = useCallback(async () => {
     if (!mountedRef.current) return;
@@ -1193,9 +1199,7 @@ const Materiels: React.FC = () => {
   return (
     <div className="materiels-container">
       {/* Header */}
-      <header className="materiels-header">
-        <h1 className="page-title">Matériels</h1>
-      </header>
+      <PageHeader title="Matériels" onBack={handleBack} />
 
       {/* Information Cards */}
       <section className="info-cards-section">

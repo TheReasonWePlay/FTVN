@@ -17,6 +17,7 @@ import {
 
 import '../styles/Incidents.css';
 import { useTheme } from '../contexts/ThemeContext';
+import PageHeader from '../components/PageHeader';
 
 import {
   getAllIncidents,
@@ -630,9 +631,7 @@ const Incidents: React.FC = () => {
   return (
     <div className={`incidents-container ${theme}`}>
       {/* Header */}
-      <header className="incidents-header">
-        <h1 className="page-title">Incidents</h1>
-      </header>
+      <PageHeader title="Incidents" />
 
       {/* Information Cards */}
       <section className="info-cards-section">

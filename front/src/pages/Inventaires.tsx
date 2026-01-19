@@ -26,6 +26,7 @@ import type { Salle, Inventaire, Materiel, Incident } from '../types';
 import { useToast } from '../hooks/useToast';
 import LoadingState from '../components/LoadingState';
 import ErrorBoundary from '../components/ErrorBoundary';
+import PageHeader from '../components/PageHeader';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface ModalInventaire {
@@ -647,14 +648,7 @@ const Inventaires: React.FC = () => {
     <ErrorBoundary>
       <div className="inventaires-container">
       {/* Header */}
-      <header className="inventaires-header">
-        <div className="header-left">
-          <button className="back-button" onClick={handleBack} aria-label="Retour">
-            <BackIcon size={20} />
-          </button>
-          <h1 className="page-title">Inventaires</h1>
-        </div>
-      </header>
+      <PageHeader title="Inventaires" onBack={handleBack} />
 
       {/* Search and Filters */}
       <section className="search-filters-section">

@@ -1,8 +1,8 @@
-
-
 /* ====== Sidebar Container ====== */
 .sidebar {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 280px;
   background: var(--element-bg);
@@ -13,6 +13,12 @@
   border-right: 1px solid var(--border-color);
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  z-index: 1000;
+}
+
+/* Modal overlay should be above sidebar */
+.modal-overlay {
+  z-index: 1100;
 }
 
 .sidebar.collapsed {
@@ -24,16 +30,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 16px;
+  padding: 0 16px;
   border-bottom: 1px solid var(--border-color);
-  background: linear-gradient(135deg, var(--element-bg) 0%, var(--global-bg) 100%);
+  background: var(--element-bg);
   min-height: 72px;
 }
 
 .sidebar-logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--blue-btn);
+  color: var(--dark-blue-btn);
   letter-spacing: 0.5px;
   margin: 0;
   transition: opacity 0.3s ease;
@@ -53,7 +59,6 @@
 }
 
 .sidebar-toggle-btn:hover {
-  background: var(--global-bg);
   color: var(--blue-btn);
   transform: scale(1.05);
 }
@@ -74,23 +79,23 @@
 
 .nav-item {
   margin: 4px 8px;
-  border-radius: 8px;
   overflow: hidden;
   transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-  background: var(--global-bg);
+  background: var(--dark-blue-bg);
+  color: var(--blue-bg);
   transform: translateX(4px);
 }
 
 .nav-item.active {
-  background: var(--blue-btn);
+  background: var(--blue-bg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .nav-item.active:hover {
-  background: var(--blue-hover);
+  background: var(--blue-bg);
   transform: translateX(4px);
 }
 
@@ -112,7 +117,7 @@
 }
 
 .nav-item.active .nav-link {
-  color: var(--btn-text);
+  color: var(--blue-text);
   font-weight: 600;
 }
 
@@ -123,7 +128,7 @@
   top: 0;
   bottom: 0;
   width: 4px;
-  background: var(--btn-text);
+  background: var(--blue-text);
   border-radius: 0 2px 2px 0;
 }
 
@@ -137,8 +142,7 @@
 
 /* ====== Settings Section ====== */
 .sidebar-settings {
-  padding: 8px 0;
-  border-top: 1px solid var(--border-color);
+  padding: 0;
 }
 
 .settings-toggle {
@@ -160,7 +164,7 @@
 }
 
 .settings-toggle:hover {
-  background: var(--global-bg);
+  background: var(--third-bg);
   color: var(--blue-btn);
   transform: translateX(4px);
 }
@@ -181,7 +185,7 @@
 
 .settings-submenu {
   list-style: none;
-  padding: 8px 0;
+  padding: 4px 0;
   margin: 0;
   background: var(--global-bg);
   border-radius: 0 0 8px 8px;
@@ -206,9 +210,9 @@
 
 /* ====== Sidebar Footer ====== */
 .sidebar-footer {
-  padding: 16px 0;
+  padding: 8px 0;
   border-top: 1px solid var(--border-color);
-  background: linear-gradient(135deg, var(--global-bg) 0%, var(--element-bg) 100%);
+  background: var(--element-bg);
 }
 
 /* Theme Switch Button */
@@ -231,7 +235,7 @@
 
 .theme-switch-btn:hover {
   background: var(--element-bg);
-  color: var(--blue-btn);
+  color: var(--blue-text);
   transform: translateX(4px);
 }
 
@@ -267,13 +271,13 @@
 
 .user-profile-btn:hover {
   background: var(--element-bg);
-  color: var(--blue-btn);
+  color: var(--blue-text);
   transform: translateX(4px);
 }
 
 .user-profile-btn.open {
-  background: var(--element-bg);
-  color: var(--blue-btn);
+  background: var(--blue-bg);
+  color: var(--blue-text);
 }
 
 .user-info {
@@ -317,7 +321,6 @@
   left: 8px;
   right: 8px;
   background: var(--element-bg);
-  border: 1px solid var(--border-color);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   list-style: none;
@@ -344,11 +347,11 @@
 
 .user-submenu-link:hover {
   background: var(--global-bg);
-  color: var(--blue-btn);
+  color: var(--blue-text);
 }
 
 .logout-link {
-  color: var(--red-btn);
+  color: var(--red-text);
 }
 
 .logout-link:hover {
@@ -434,16 +437,17 @@
 /* ====== Responsive Design ====== */
 @media (max-width: 768px) {
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
     box-shadow: 2px 0 16px rgba(0, 0, 0, 0.2);
   }
 
   .sidebar.collapsed {
     width: 0;
     overflow: hidden;
+  }
+
+  .layout.sidebar-expanded .main-content,
+  .layout.sidebar-collapsed .main-content {
+    margin-left: 0;
   }
 }
 

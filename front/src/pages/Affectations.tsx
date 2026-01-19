@@ -6,17 +6,20 @@ import {
   Eye,
   Trash2,
   Edit,
+  Link2Off,
   Calendar,
   ChevronDown,
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-  User,
   X,
   AlertTriangle
 } from 'lucide-react';
 
 import '../styles/Affectations.css';
+import '../styles/tableau.css';
+import '../styles/page.css';
+import '../styles/modal.css';
 
 import {
   getAllAffectations,
@@ -32,6 +35,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useToast } from '../hooks/useToast';
 import type { Affectation } from '../api/affectation-api';
 import type { Position, Personne } from '../types';
+import PageHeader from '../components/PageHeader';
 
 interface AffectationsData {
   totalAffectations: number;
@@ -389,14 +393,10 @@ const Affectations: React.FC = () => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
 
-
-
   const handleConsulterAffectation = (affectation: Affectation) => {
     setSelectedAffectation(affectation);
     setShowConsulterModal(true);
   };
-
-
 
   const handleModifierAffectation = (affectation: Affectation) => {
     setSelectedAffectation(affectation);
@@ -452,7 +452,10 @@ const Affectations: React.FC = () => {
     }
   };
 
-
+  const handleBack = () => {
+    // In real app, navigate back or to dashboard
+    window.history.back();
+  };
 
   const paginatedAffectations = filteredAffectations.slice(
     (currentPage - 1) * itemsPerPage,
@@ -464,29 +467,7 @@ const Affectations: React.FC = () => {
   return (
     <div className={`affectations-container ${theme}`}>
       {/* Header */}
-      <header className="affectations-header">
-        <h1 className="page-title">Affectations</h1>
-      </header>
-
-      {/* Information Cards */}
-      <section className="info-cards-section">
-        <div className="info-cards">
-          <div className="info-card">
-            <h3>Total Affectations</h3>
-            <p className="card-value">{affectationsData.totalAffectations}</p>
-          </div>
-
-          <div className="info-card">
-            <h3>Affectations Actives</h3>
-            <p className="card-value">{affectationsData.affectationsActives}</p>
-          </div>
-
-          <div className="info-card">
-            <h3>Affectations Terminées</h3>
-            <p className="card-value">{affectationsData.affectationsTerminees}</p>
-          </div>
-        </div>
-      </section>
+      <PageHeader title='Affectations' onBack={handleBack} />
 
       {/* Search and Filters */}
       <section className="search-filters-section">
@@ -553,8 +534,6 @@ const Affectations: React.FC = () => {
                     value={filters.refPosition}
                     onChange={(e) => handleFilterChange('refPosition', e.target.value)}
                   />
-                </th>
-                <th>
                   <input
                     type="text"
                     placeholder="Matricule"
@@ -578,24 +557,37 @@ const Affectations: React.FC = () => {
               {paginatedAffectations.map((affectation) => (
                 <tr key={affectation.refAffectation}>
                   <td>{affectation.refAffectation}</td>
-                  <td>{affectation.refPosition || '-'}</td>
-                  <td>{affectation.matricule || '-'}</td>
+                  <td>{affectation.refPosition || affectation.matricule}</td>
                   <td>{affectation.dateDebut}</td>
                   <td>{affectation.dateFin || 'En cours'}</td>
-                  <td>{affectation.nom || '-'}</td>
-                  <td>{affectation.prenom || '-'}</td>
                   <td>
                     <div className="action-buttons">
-                      <button onClick={() => handleConsulterAffectation(affectation)} aria-label="Consulter">
+                      <button
+                        className=" action-btn consulter"
+                        onClick={() => handleConsulterAffectation(affectation)}
+                        aria-label="Consulter"
+                      >
                         <Eye size={14} />
                       </button>
-                      <button onClick={() => handleModifierAffectation(affectation)} aria-label="Modifier">
+                      <button
+                        className=' action-btn edit'
+                        onClick={() => handleModifierAffectation(affectation)}
+                        aria-label="Modifier"
+                      >
                         <Edit size={14} />
                       </button>
-                      <button onClick={() => handleCloreAffectationConfirm(affectation)} aria-label="Clore" disabled={!!affectation.dateFin}>
-                        <User size={14} />
+                      <button
+                        className=' action-btn close'
+                        onClick={() => handleCloreAffectationConfirm(affectation)}
+                        aria-label="Clore" disabled={!!affectation.dateFin}
+                      >
+                        <Link2Off size={14} />
                       </button>
-                      <button onClick={() => handleSupprimerAffectationConfirm(affectation)} aria-label="Supprimer">
+                      <button
+                        className='action-btn delete'
+                        onClick={() => handleSupprimerAffectationConfirm(affectation)}
+                        aria-label="Supprimer"
+                      >
                         <Trash2 size={14} />
                       </button>
                     </div>
@@ -724,8 +716,6 @@ const Affectations: React.FC = () => {
                   </div>
                 </div>
               </div>
-
-
             </div>
 
             <div className="modal-footer">

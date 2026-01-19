@@ -11,42 +11,9 @@
   color: var(--text-color);
 }
 
-/* Header */
-.materiels-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  background: var(--element-bg);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.page-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--title-color);
-  margin: 0;
-}
-
-.theme-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-color);
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background 0.2s ease;
-}
-
-.theme-toggle:hover {
-  background: var(--blue-bg);
-}
-
 /* Information Cards */
 .info-cards-section {
-  padding: 2rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
 }
 
 .info-cards {

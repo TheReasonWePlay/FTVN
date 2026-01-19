@@ -2,7 +2,7 @@
 
 /* Table Containers */
 .table-section {
-  padding: 0 2rem 2rem;
+  padding: 0 2rem 2rem 2rem;
 }
 
 .table-container {
@@ -14,61 +14,179 @@
 }
 
 /* Table Elements */
-.utilisateurs-table,
-.salles-table,
+.affectations-table,
+.incidents-table,
+.inventaires-table,
+.materiels-table,
+.personnels-table,
 .positions-table,
-.personnels-table {
+.salles-table,
+.utilisateurs-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
 }
 
-.utilisateurs-table th,
-.salles-table th,
+.affectations-table th,
+.incidents-table th,
+.inventaires-table th,
+.materiels-table th,
 .positions-table th,
-.personnels-table th {
-  background: var(--global-bg);
+.personnels-table th,
+.salles-table th,
+.utilisateurs-table th {
+  background: var(--element-bg);
   color: var(--title-color);
-  padding: 1rem;
+  padding: 0.3rem;
   text-align: left;
   font-weight: 600;
   font-size: 0.9rem;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
+  user-select: none;
   transition: background 0.25s ease;
 }
 
-.utilisateurs-table th:hover,
-.salles-table th:hover,
+.affectations-table th:hover,
+.incidents-table th:hover,
+.inventaires-table th:hover,
+.materiels-table th:hover,
+.personnels-table th:hover,
 .positions-table th:hover,
-.personnels-table th:hover {
-  background: var(--element-bg);
+.salles-table th:hover,
+.utilisateurs-table th:hover {
+  background: var(--third-bg);
 }
 
-.utilisateurs-table th.sorted,
-.salles-table th.sorted,
+.affectations-table th.sorted,
+.incidents-table th.sorted,
+.inventaires-table th.sorted,
+.materiels-table th.sorted,
+.personnels-table th.sorted,
 .positions-table th.sorted,
-.personnels-table th.sorted {
+.salles-table th.sorted,
+.utilisateurs-table th.sorted {
   background: var(--blue-btn);
   color: var(--btn-text);
 }
 
-.utilisateurs-table td,
-.salles-table td,
+.affectations-table th input, .affectations-table th select,
+.inventaires-table th input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background: none;
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
+
+.affectations-table th input:focus, .affectations-table th select:focus,
+.inventaires-table th input:focus {
+  outline: none;
+  border-color: var(--dark-blue-btn);
+}
+
+.affectations-table td,
+.incidents-table td,
+.inventaires-table td,
+.materiels-table td,
+.personnels-table td,
 .positions-table td,
-.personnels-table td {
-  padding: 1rem;
+.salles-table td,
+.utilisateurs-table td {
+  padding: 0.3rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-color);
 }
 
-.utilisateurs-table tbody tr:hover,
-.salles-table tbody tr:hover,
+.affectations-table tbody tr,
+.incidents-table tbody tr,
+.inventaires-table tbody tr,
+.materiels-table tbody tr,
+.personnels-table tbody tr,
+.positions-table tbody tr,
+.salles-table tbody tr,
+.utilisateurs-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s ease;
+}
+
+.affectations-table tbody tr:hover,
+.incidents-table tbody tr:hover,
+.inventaires-table tbody tr:hover,
+.materiels-table tbody tr:hover,
+.personnels-table tbody tr:hover,
 .positions-table tbody tr:hover,
-.personnels-table tbody tr:hover {
-  background: var(--global-bg);
+.salles-table tbody tr:hover,
+.utilisateurs-table tbody tr:hover {
+  background: var(--third-bg);
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-buttons button, .action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.action-btn.working {
+  cursor: pointer;
+}
+
+.action-btn.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.action-btn.consulter {
+  color: var(--blue-text);
+}
+
+.action-btn.consulter:hover {
+  background-color: var(--blue-bg);
+}
+
+.action-btn.edit {
+  color: var(--blue-btn);
+}
+
+.action-btn.edit:hover {
+  background-color: var(--blue-bg);
+}
+
+.action-btn.affecter {
+  color: var(--purple-btn);
+}
+
+.action-btn.affecter:hover {
+  background-color: var(--purple-bg);
+}
+
+.action-btn.close {
+  color: var(--text-color);
+}
+
+.action-btn.close:hover {
+  background-color: var(--gray-bg);
+}
+
+.action-btn.delete {
+  color: var(--red-btn);
+}
+
+.action-btn.delete:hover {
+  background-color: var(--red-bg);
 }
 
 /* Operations Cell */
@@ -125,7 +243,6 @@
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
 .status-badge.libre,
@@ -193,8 +310,9 @@
   border-top: 1px solid var(--border-color);
 }
 
+.pagination button,
 .pagination-btn {
-  background: var(--element-bg);
+  background: var(--blue-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 0.5rem;
@@ -206,15 +324,19 @@
   justify-content: center;
 }
 
+.pagination button:hover:not(:disabled),
 .pagination-btn:hover:not(:disabled) {
   background: var(--blue-btn);
   color: var(--btn-text);
   border-color: var(--blue-btn);
 }
 
+.pagination button:disabled,
 .pagination-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background: var(--gray-bg);
+  color: var(--gray-text);
 }
 
 .pagination span {
@@ -254,18 +376,26 @@
   border-color: var(--border-color);
 }
 
-.dark .utilisateurs-table th,
-.dark .salles-table th,
+.dark .affectations-table th,
+.dark .incidents-table th,
+.dark .inventaires-table th,
+.dark .materiels-table th,
+.dark .personnels-table th,
 .dark .positions-table th,
-.dark .personnels-table th {
+.dark .salles-table th,
+.dark .utilisateurs-table th {
   background: var(--global-bg);
   color: var(--title-color);
 }
 
-.dark .utilisateurs-table tbody tr:hover,
-.dark .salles-table tbody tr:hover,
+.dark .affectations-table th:hover,
+.dark .incidents-table th:hover,
+.dark .inventaires-table th:hover,
+.dark .materiels-table th:hover,
+.dark .personnels-table tbody tr:hover,
 .dark .positions-table tbody tr:hover,
-.dark .personnels-table tbody tr:hover {
+.dark .salles-table tbody tr:hover,
+.dark .utilisateurs-table tbody tr:hover {
   background: var(--element-bg);
 }
 
@@ -281,10 +411,14 @@
     overflow-x: auto;
   }
 
-  .utilisateurs-table,
-  .salles-table,
+  .affectations-table,
+  .incidents-table,
+  .inventaires-table,
+  .materiels-table,
+  .personnels-table,
   .positions-table,
-  .personnels-table {
+  .salles-table,
+  .utilisateurs-table {
     min-width: 800px;
   }
 }
@@ -302,6 +436,7 @@
   .utilisateurs-table td,
   .salles-table td,
   .positions-table td,
+  .inventaires-table td,
   .personnels-table td {
     padding: 0.5rem;
     font-size: 0.8rem;
@@ -324,14 +459,16 @@
   .utilisateurs-table td,
   .salles-table td,
   .positions-table td,
+  .inventaires-table td,
   .personnels-table td {
-    padding: 0.25rem;
+    padding: 0.15rem;
     font-size: 0.7rem;
   }
 
   .utilisateurs-table th,
   .salles-table th,
   .positions-table th,
+  .inventaires-table th,
   .personnels-table th {
     font-size: 0.7rem;
   }
