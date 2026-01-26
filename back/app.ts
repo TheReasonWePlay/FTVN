@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 
 // Routers
-import authRouter  from './routes/auth-routes';
+import authRouter from './routes/auth-routes';
 import salleRouter from './routes/salle-routes';
 import materielRouter from './routes/materiel-routes';
 import utilisateurRouter from './routes/utilisateur-routes';
@@ -40,7 +40,7 @@ app.use('/api/inventaires', inventaireRouter);
 app.use('/api', positionRouter);
 app.use('/api/affectations', affectationRouter);
 app.use('/api/dashboard', dashboardRouter);
-app.use('/api/personnes', personneRouter)
+app.use('/api/personnes', personneRouter);
 
 // Catch-all route for undefined routes
 app.all('/api', (req: Request, res: Response, next: NextFunction) => {

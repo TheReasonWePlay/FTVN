@@ -6,7 +6,9 @@ import {
     updatePersonne,
     deletePersonne,
     filterPersonnes,
+    importPersonne,
 } from '../crud/personne-crud';
+import multer from "multer";
 
 const personneRouter = Router();
 
@@ -56,6 +58,17 @@ personneRouter.post('/', async (req: Request, res: Response) => {
         res.status(500).json({ error: "Erreur serveur" });
     }
 });
+
+const upload = multer({
+    dest: "uploads/",
+    limits: { fileSize: 5 * 1024 * 1024 }
+});
+
+personneRouter.post(
+    "/import",
+    upload.single("file"),
+    importPersonne
+);
 
 personneRouter.put('/:matricule', async (req: Request, res: Response) => {
     try {

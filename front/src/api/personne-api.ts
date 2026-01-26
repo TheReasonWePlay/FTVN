@@ -42,6 +42,21 @@ export const createPersonne = async (data: object): Promise<void> => {
   }
 };
 
+export const importPersonne = async (data: FormData): Promise<void> => {
+  try {
+    await apiClient.post("/personnes/import", data, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+  } catch (error: any) {
+    if (error.response?.status === 400) {
+      throw new Error(error.response.data.error);
+    }
+    throw error;
+  }
+};
+
 export const updatePersonne = async (matricule: string, data: object): Promise<void> => {
   try {
     await apiClient.put(`/personnes/${matricule}`, data);

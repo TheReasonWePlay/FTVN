@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 
 import {
   Search,
@@ -13,7 +13,8 @@ import {
 import {
   getAllPersonnes,
   createPersonne,
-  deletePersonne
+  deletePersonne,
+  importPersonne,
 } from '../api/personne-api';
 import { getAllMateriels } from '../api/materiel-api';
 import { getAllAffectations } from '../api/affectation-api';
@@ -769,6 +770,8 @@ const Personnels: React.FC = () => {
   const uniquePostes = [...new Set(personnes.map(p => p.poste))];
   const uniqueProjets = [...new Set(personnes.map(p => p.projet))];
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   if (loading) {
     return (
       <div className="personnels-page">
@@ -779,6 +782,41 @@ const Personnels: React.FC = () => {
       </div>
     );
   }
+
+  // Ouvre la fenêtre de sélection
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  // Quand un fichier est sélectionné
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // (optionnel) validation côté front
+    if (!file.name.endsWith(".xlsx") && !file.name.endsWith(".xls")) {
+      alert("Veuillez sélectionner un fichier Excel");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      await importPersonne(formData);
+      const personnesData = await getAllPersonnes();
+      setPersonnes(personnesData);
+      alert("Import réussi !");
+    } catch (error) {
+      console.error(error);
+      alert("Erreur lors de l'import");
+    } finally {
+      // reset input pour pouvoir re-uploader le même fichier
+      event.target.value = "";
+    }
+  };
 
   return (
     <div className={`personnels-page ${theme}`}>
@@ -816,6 +854,18 @@ const Personnels: React.FC = () => {
               <option key={projet} value={projet}>{projet}</option>
             ))}
           </select>
+          {/* Input caché */}
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept=".xlsx,.xls"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+          <button className="btn-primary add-btn" onClick={handleButtonClick}>
+            <Plus size={16} />
+            Importer
+          </button>
           <button className="btn-primary add-btn" onClick={() => setShowAddModal(true)}>
             <Plus size={16} />
             Ajouter une personne
