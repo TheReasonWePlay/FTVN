@@ -215,6 +215,18 @@ const Dashboard: React.FC = () => {
     }],
   };
 
+  // Histogramme en barres
+  const barColors = [
+    'var(--blue-highlight)',
+    'var(--green-highlight)',
+    'var(--orange-highlight)',
+    'var(--red-highlight)',
+    'var(--purple-highlight)',
+    'var(--pink-highlight)',
+    'var(--teal-highlight)',
+    'var(--dark-blue-highlight)',
+  ];
+
   const barData = {
     labels: Array.isArray(dashboardData.materielsByCategory)
       ? dashboardData.materielsByCategory.map(item => item.categorie)
@@ -224,38 +236,42 @@ const Dashboard: React.FC = () => {
       data: Array.isArray(dashboardData.materielsByCategory)
         ? dashboardData.materielsByCategory.map(item => item.count)
         : Object.values(dashboardData.materielsByCategory),
-      backgroundColor: 'var(--element-bg)',
+      backgroundColor: Array.isArray(dashboardData.materielsByCategory)
+        ? dashboardData.materielsByCategory.map((_, index) => barColors[index % barColors.length])
+        : Object.keys(dashboardData.materielsByCategory).map((_, index) => barColors[index % barColors.length]),
       borderWidth: 1,
     }],
   };
 
   const lineData = {
-    labels: dashboardData.monthlyEvolution.map(d => new Date(d.month + '-01').toLocaleDateString('fr-FR', { month: 'short' })),
+    labels: dashboardData.monthlyEvolution.map(d => 
+      new Date(d.month + '-01').toLocaleDateString('fr-FR', { month: 'short' })
+    ),
     datasets: [
       {
         label: 'Affectations',
-        data: dashboardData.monthlyEvolution.map(d => d.affectations),
+        data: dashboardData.monthlyEvolution.map(d => d.affectations ?? 0),
         borderColor: '#10B981',
         backgroundColor: '#10B981',
         tension: 0.1,
       },
       {
         label: 'Incidents',
-        data: dashboardData.monthlyEvolution.map(d => d.incidents),
+        data: dashboardData.monthlyEvolution.map(d => d.incidents ?? 0),
         borderColor: '#EF4444',
         backgroundColor: '#EF4444',
         tension: 0.1,
       },
       {
         label: 'Inventaires',
-        data: dashboardData.monthlyEvolution.map(d => d.inventaires),
+        data: dashboardData.monthlyEvolution.map(d => d.inventaires ?? 0),
         borderColor: '#0a577a',
         backgroundColor: '#0a577a',
         tension: 0.1,
       },
       {
         label: 'Ajout de matériels',
-        data: dashboardData.monthlyEvolution.map(d => d.materiels || 0),
+        data: dashboardData.monthlyEvolution.map(d => d.materiels ?? 0),
         borderColor: '#8B5CF6',
         backgroundColor: '#8B5CF6',
         tension: 0.1,

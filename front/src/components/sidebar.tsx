@@ -341,7 +341,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onToggle }) => {
                 <div className="modal-overlay" onClick={() => setProfileModalOpen(false)}>
                     <div className="modal-content edit-profile-modal" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
-                            <h2>Modifier le Profil</h2>
+                            <h2>Profil</h2>
                             <button className="close-button" onClick={() => setProfileModalOpen(false)} aria-label="Fermer">
                                 <X size={20} />
                             </button>
