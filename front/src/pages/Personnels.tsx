@@ -19,8 +19,12 @@ import {
 import { getAllMateriels } from '../api/materiel-api';
 import { getAllAffectations } from '../api/affectation-api';
 import { useTheme } from '../contexts/ThemeContext';
+import PageHeader from '../components/PageHeader';
 
 import '../styles/Personnels.css';
+import '../styles/page.css';
+import '../styles/tableau.css';
+import '../styles/modal.css';
 
 interface Personne {
   matricule: string;
@@ -818,17 +822,15 @@ const Personnels: React.FC = () => {
     }
   };
 
+  const handleBack = () => {
+    // In real app, navigate back or to dashboard
+    window.history.back();
+  };
+
   return (
     <div className={`personnels-page ${theme}`}>
-      {/* Page Header */}
-      <div className="page-header">
-        <div className="header-content">
-          <h1>Personnels</h1>
-          <div className="breadcrumb">
-            <span>Accueil</span> <span>•</span> <span>Personnels</span>
-          </div>
-        </div>
-      </div>
+      {/* Header */}
+      <PageHeader title='Affectations' onBack={handleBack} />
 
       {/* Search and Filters */}
       <div className="search-filters">

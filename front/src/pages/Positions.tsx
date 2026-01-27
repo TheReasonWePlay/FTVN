@@ -10,8 +10,7 @@ import {
   ChevronRight,
   X,
   User,
-  Package,
-  ChevronLeft as BackIcon
+  Package
 } from 'lucide-react';
 
 import {
@@ -23,8 +22,12 @@ import { getAllSalles } from '../api/salle-api';
 import { getAffectationsBySalle } from '../api/affectation-api';
 import { getAllMateriels } from '../api/materiel-api';
 import { useTheme } from '../contexts/ThemeContext';
+import PageHeader from '../components/PageHeader';
 
 import '../styles/Positions.css';
+import '../styles/page.css';
+import '../styles/tableau.css';
+import '../styles/modal.css';
 
 interface Position {
   refPosition: string;
@@ -865,15 +868,8 @@ const Positions: React.FC = () => {
 
   return (
     <div className={`positions-page ${theme}`}>
-      {/* Page Header */}
-      <div className="page-header">
-        <div className="header-content">
-          <button className="back-button" onClick={handleBack} aria-label="Retour">
-            <BackIcon size={20} />
-          </button>
-          <h1>Positions</h1>
-        </div>
-      </div>
+      {/* Header */}
+      <PageHeader title='Affectations' onBack={handleBack} />
 
       {/* Info Cards */}
       <div className="info-cards">

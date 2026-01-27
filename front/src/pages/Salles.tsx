@@ -13,6 +13,9 @@ import {
 } from 'lucide-react';
 
 import '../styles/Salles.css';
+import '../styles/page.css';
+import '../styles/tableau.css';
+import '../styles/modal.css';
 
 import {
   getAllSalles,
@@ -25,6 +28,7 @@ import { getAffectationsBySalle, type Affectation } from '../api/affectation-api
 import { getInventairesBySalle } from '../api/inventaire-api';
 import { useToast } from '../hooks/useToast';
 import { useTheme } from '../contexts/ThemeContext';
+import PageHeader from '../components/PageHeader';
 
 // Define Inventaire interface locally since it's not exported
 interface Inventaire {
@@ -397,6 +401,11 @@ const Salles: React.FC = () => {
     setSelectedSalle(null);
   }, []);
 
+  const handleBack = () => {
+    // In real app, navigate back or to dashboard
+    window.history.back();
+  };
+
   // Loading state
   if (loading.salles || loading.positions) {
     return (
@@ -426,17 +435,10 @@ const Salles: React.FC = () => {
   return (
     <div className={`salles-page ${theme}`}>
       {/* Page Header */}
-      <div className="page-header">
-        <div className="header-content">
-          <h1>Salles</h1>
-          <div className="breadcrumb">
-            <span>Accueil</span> <span>•</span> <span>Salles</span>
-          </div>
-        </div>
-      </div>
+      <PageHeader title="Salles" onBack={handleBack} />
 
       {/* Search and Filters */}
-      <div className="search-filters">
+      <div className="search-filters-section">
         <div className="search-bar">
           <Search size={20} />
           <input
