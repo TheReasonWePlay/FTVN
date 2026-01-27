@@ -9,7 +9,8 @@ import {
   BarChart3,
   PieChart,
   TrendingUp,
-  Pin
+  Pin,
+  Monitor
 } from 'lucide-react';
 import { Doughnut, Bar, Line } from 'react-chartjs-2';
 import {
@@ -172,21 +173,10 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleNavigateToMateriels = () => {
-    navigate('/equipment');
-  };
-
-  const handleNavigateToIncidents = () => {
-    navigate('/incidents');
-  };
-
-  const handleNavigateToInventaires = () => {
-    navigate('/inventories');
-  };
-
-  const handleNavigateToAffectations = () => {
-    navigate('/affectations');
-  };
+  const handleNavigateToMateriels = () => navigate('/equipment');
+  const handleNavigateToIncidents = () => navigate('/incidents');
+  const handleNavigateToInventaires = () => navigate('/inventories');
+  const handleNavigateToAffectations = () => navigate('/affectations');
 
   if (dashboardState.loading) {
     return (
@@ -276,6 +266,8 @@ const Dashboard: React.FC = () => {
   const filteredRecentOperations = dashboardData.recentOperations.filter(op =>
     op.type !== 'incident' || op.status.toLowerCase() === 'ouvert'
   );
+
+  const recentMaterielsAdded = dashboardData.recentOperations.filter(op => op.type === 'ajout-materiel').length;
 
   return (
     <ErrorBoundary>
@@ -469,6 +461,16 @@ const Dashboard: React.FC = () => {
                 <div className="counter-content">
                   <h4>Nouvelles Affectations</h4>
                   <p className="counter-value">{dashboardData.newAffectations}</p>
+                </div>
+              </div>
+              
+              <div className='counter-card clickable' onClick={handleNavigateToMateriels}>
+                <div className='counter-icon'>
+                  <Monitor size={24} />
+                </div>
+                <div className='counter-content'>
+                  <h4>Matériels Totaux</h4>
+                  <p className='counter-value'>{recentMaterielsAdded}</p>
                 </div>
               </div>
             </div>

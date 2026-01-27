@@ -628,10 +628,15 @@ const Incidents: React.FC = () => {
     );
   }
 
+  const handleBack = () => {
+    // In real app, navigate back or to dashboard
+    window.history.back();
+  };
+
   return (
     <div className={`incidents-container ${theme}`}>
       {/* Header */}
-      <PageHeader title="Incidents" />
+      <PageHeader title="Incidents" onBack={handleBack} />
 
       {/* Information Cards */}
       <section className="info-cards-section">
