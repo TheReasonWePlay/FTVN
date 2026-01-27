@@ -867,161 +867,128 @@ const Positions: React.FC = () => {
   }
 
   return (
-    <div className={`positions-page ${theme}`}>
+    <div className={`positions-container ${theme}`}>
       {/* Header */}
-      <PageHeader title='Affectations' onBack={handleBack} />
-
-      {/* Info Cards */}
-      <div className="info-cards">
-        <div className="info-card">
-          <h3>Total Positions</h3>
-          <p>{positions.length}</p>
-        </div>
-        <div className="info-card">
-          <h3>Positions Libres</h3>
-          <p>{positions.filter(p => p.occupation === 'Libre').length}</p>
-        </div>
-        <div className="info-card">
-          <h3>Positions Occupées</h3>
-          <p>{positions.filter(p => p.occupation === 'Occupée').length}</p>
-        </div>
-        <div className="info-card">
-          <h3>Salles</h3>
-          <p>{salles.length}</p>
-        </div>
-      </div>
-
+      <PageHeader title="Positions" onBack={handleBack} />
+      
       {/* Search and Filters */}
-      <div className="search-filters">
-        <div className="search-bar">
-          <Search size={20} />
-          <input
-            type="text"
-            placeholder="Rechercher par référence, désignation ou port..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      <section className="search-filters-section">
+        <div className="search-filters">
+          <div className="search-group">
+            <div className="search-input-container">
+              <Search size={16} />
+              <input
+                type="text"
+                placeholder="Rechercher par référence, désignation ou port..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="filters">
+            <select value={occupationFilter} onChange={(e) => setOccupationFilter(e.target.value)} aria-label="Filtrer par statut d'occupation">
+              <option value="">Tous les statuts</option>
+              <option value="Libre">Libre</option>
+              <option value="Occupée">Occupée</option>
+            </select>
+
+            <select value={salleFilter} onChange={(e) => setSalleFilter(e.target.value)} aria-label="Filtrer par salle">
+              <option value="">Toutes les salles</option>
+              {salles.map(salle => (
+                <option key={salle.refSalle} value={salle.refSalle}>
+                  {salle.nomSalle}
+                </option>
+              ))}
+            </select>
+
+            <button className="add-button" onClick={() => setShowAddModal(true)}>
+              <Plus size={16} />
+              Ajouter Position
+            </button>
+          </div>
         </div>
-        <div className="filters">
-          <select value={occupationFilter} onChange={(e) => setOccupationFilter(e.target.value)} aria-label="Filtrer par statut d'occupation">
-            <option value="">Tous les statuts</option>
-            <option value="Libre">Libre</option>
-            <option value="Occupée">Occupée</option>
-          </select>
-          <select value={salleFilter} onChange={(e) => setSalleFilter(e.target.value)} aria-label="Filtrer par salle">
-            <option value="">Toutes les salles</option>
-            {salles.map(salle => (
-              <option key={salle.refSalle} value={salle.refSalle}>
-                {salle.nomSalle}
-              </option>
-            ))}
-          </select>
-          <button className="btn-primary add-btn" onClick={() => setShowAddModal(true)}>
-            <Plus size={16} />
-            Ajouter Position
-          </button>
-        </div>
-      </div>
+      </section>
 
       {/* Table */}
-      <div className="table-container">
-        <table className="positions-table">
-          <thead>
-            <tr>
-              <th className={sortField === 'refPosition' ? 'sorted' : ''} onClick={() => handleSort('refPosition')}>
-                Référence Position
-              </th>
-              <th className={sortField === 'designPosition' ? 'sorted' : ''} onClick={() => handleSort('designPosition')}>
-                Désignation
-              </th>
-              <th className={sortField === 'port' ? 'sorted' : ''} onClick={() => handleSort('port')}>
-                Port
-              </th>
-              <th className={sortField === 'refSalle' ? 'sorted' : ''} onClick={() => handleSort('refSalle')}>
-                Salle
-              </th>
-              <th className={sortField === 'occupation' ? 'sorted' : ''} onClick={() => handleSort('occupation')}>
-                Occupation
-              </th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedPositions.map((position) => (
-              <tr key={position.refPosition}>
-                <td>{position.refPosition}</td>
-                <td>{position.designPosition}</td>
-                <td>{position.port}</td>
-                <td>{position.nomSalle || position.refSalle}</td>
-                <td>
-                  <span className={`status-badge ${position.occupation}`}>
-                    {position.occupation}
-                  </span>
-                </td>
-                <td>
-                  <div className="action-buttons">
-                    <button
-                      className="btn-icon"
-                      onClick={() => handleConsultPosition(position)}
-                      aria-label="Consulter les détails"
-                    >
-                      <Eye size={16} />
-                    </button>
-                    <button
-                      className="btn-icon edit"
-                      onClick={() => handleEditPosition(position)}
-                      aria-label="Modifier la position"
-                    >
-                      <Edit size={16} />
-                    </button>
-                    <button
-                      className="btn-icon delete"
-                      onClick={() => handleDeletePosition(position.refPosition)}
-                      aria-label="Supprimer la position"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </td>
+      <section className="table-section">
+        <div className="table-container">
+          <table className="positions-table">
+            <thead>
+              <tr>
+                <th className={sortField === 'refPosition' ? 'sorted' : ''} onClick={() => handleSort('refPosition')}>
+                  Référence Position
+                </th>
+                <th className={sortField === 'designPosition' ? 'sorted' : ''} onClick={() => handleSort('designPosition')}>
+                  Désignation
+                </th>
+                <th className={sortField === 'port' ? 'sorted' : ''} onClick={() => handleSort('port')}>
+                  Port
+                </th>
+                <th className={sortField === 'refSalle' ? 'sorted' : ''} onClick={() => handleSort('refSalle')}>
+                  Salle
+                </th>
+                <th className={sortField === 'occupation' ? 'sorted' : ''} onClick={() => handleSort('occupation')}>
+                  Occupation
+                </th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button
-            className="pagination-btn"
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-            title='pagination'
-          >
-            <ChevronLeft size={16} />
-          </button>
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              className={`pagination-btn ${page === currentPage ? 'active' : ''}`}
-              onClick={() => goToPage(page)}
-            >
-              {page}
-            </button>
-          ))}
-          <button
-            className="pagination-btn"
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            title='pagination'
-          >
-            <ChevronRight size={16} />
-          </button>
-          <span>
-            Page {currentPage} sur {totalPages} ({sortedPositions.length} éléments)
-          </span>
+            </thead>
+            <tbody>
+              {paginatedPositions.map((position) => (
+                <tr key={position.refPosition}>
+                  <td>{position.refPosition}</td>
+                  <td>{position.designPosition}</td>
+                  <td>{position.port}</td>
+                  <td>{position.nomSalle || position.refSalle}</td>
+                  <td>
+                    <span className={`status-badge ${position.occupation}`}>
+                      {position.occupation}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="action-buttons">
+                      <button className="action-btn consulter" onClick={() => handleConsultPosition(position)} aria-label="Consulter">
+                        <Eye size={14} />
+                      </button>
+                      <button className="action-btn edit" onClick={() => handleEditPosition(position)} aria-label="Modifier">
+                        <Edit size={14} />
+                      </button>
+                      <button className="action-btn delete" onClick={() => handleDeletePosition(position.refPosition)} aria-label="Supprimer">
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button onClick={goToPreviousPage} disabled={currentPage === 1} aria-label="Page précédente">
+              <ChevronLeft size={16} />
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                className={`pagination-btn ${page === currentPage ? 'active' : ''}`}
+                onClick={() => goToPage(page)}
+              >
+                {page}
+              </button>
+            ))}
+            <button onClick={goToNextPage} disabled={currentPage === totalPages} aria-label="Page suivante">
+              <ChevronRight size={16} />
+            </button>
+            <span>
+              Page {currentPage} sur {totalPages} ({sortedPositions.length} éléments)
+            </span>
+          </div>
+        )}
+      </section>
 
       {/* Modals */}
       {showAddModal && (

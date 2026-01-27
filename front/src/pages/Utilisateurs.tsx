@@ -10,16 +10,17 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-  ChevronLeft as BackIcon,
   X
 } from 'lucide-react';
 
-import '../styles/formulaire.css';
+import '../styles/page.css';
 import '../styles/tableau.css';
 import '../styles/modal.css';
 import '../styles/Utilisateurs.css';
+
 import { getAllUtilisateurs, deleteUtilisateur } from '../api/utilisateur-api';
 import { useTheme } from '../contexts/ThemeContext';
+import PageHeader from '../components/PageHeader';
 
 interface Utilisateur {
   matricule: string;
@@ -419,14 +420,7 @@ const Utilisateurs: React.FC = () => {
   return (
     <div className={`utilisateurs-container ${theme}`}>
       {/* Header */}
-      <header className="utilisateurs-header">
-        <div className="header-left">
-          <button className="back-button" onClick={handleBack} aria-label="Retour">
-            <BackIcon size={20} />
-          </button>
-          <h1 className="page-title">Utilisateurs</h1>
-        </div>
-      </header>
+      <PageHeader title="Incidents" onBack={handleBack} />
 
       {/* Search and Filters */}
       <section className="search-filters-section">
