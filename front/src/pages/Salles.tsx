@@ -433,155 +433,122 @@ const Salles: React.FC = () => {
   }
 
   return (
-    <div className={`salles-page ${theme}`}>
-      {/* Page Header */}
+    <div className={`salles-container ${theme}`}>
+      {/* Header */}
       <PageHeader title="Salles" onBack={handleBack} />
 
       {/* Search and Filters */}
-      <div className="search-filters-section">
-        <div className="search-bar">
-          <Search size={20} />
-          <input
-            type="text"
-            placeholder="Rechercher par référence ou nom de salle..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="filters">
-          <select
-            value={etageFilter}
-            onChange={(e) => setEtageFilter(e.target.value)}
-            aria-label="Filtrer par étage"
-          >
-            <option value="">Tous les étages</option>
-            <option value="RDC">RDC</option>
-            <option value="1er">1er</option>
-            <option value="2ème">2ème</option>
-            <option value="3ème">3ème</option>
-          </select>
-          <button className="btn-primary add-btn" onClick={openAddModal}>
-            <Plus size={16} />
-            Ajouter une salle
-          </button>
-        </div>
-      </div>
+      <section className="search-filters-section">
+        <div className="search-filters">
+          <div className="search-group">
+            <div className="search-input-container">
+              <Search size={16} />
+              <input
+                type="text"
+                placeholder="Rechercher par référence ou nom de salle..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
 
-      {/* Tables by Site */}
-      {Object.entries(sallesBySite).map(([site, siteSalles]) => (
-        <div key={site} className="site-section">
-          <h2 className="site-title">Site: {site}</h2>
-          <div className="table-container">
-            <table className="salles-table">
-              <thead>
-                <tr>
-                  <th
-                    className={sortField === 'refSalle' ? 'sorted' : ''}
-                    onClick={() => handleSort('refSalle')}
-                  >
-                    Référence Salle
-                  </th>
-                  <th
-                    className={sortField === 'nomSalle' ? 'sorted' : ''}
-                    onClick={() => handleSort('nomSalle')}
-                  >
-                    Nom Salle
-                  </th>
-                  <th
-                    className={sortField === 'nombrePositions' ? 'sorted' : ''}
-                    onClick={() => handleSort('nombrePositions')}
-                  >
-                    Nombre de positions
-                  </th>
-                  <th
-                    className={sortField === 'etage' ? 'sorted' : ''}
-                    onClick={() => handleSort('etage')}
-                  >
-                    Étage
-                  </th>
-                  <th
-                    className={sortField === 'site' ? 'sorted' : ''}
-                    onClick={() => handleSort('site')}
-                  >
-                    Site
-                  </th>
-                  <th
-                    className={sortField === 'nombreOperations' ? 'sorted' : ''}
-                    onClick={() => handleSort('nombreOperations')}
-                  >
-                    Opérations en cours
-                  </th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {siteSalles.map((salle) => (
-                  <tr key={salle.refSalle}>
-                    <td>{salle.refSalle}</td>
-                    <td>{salle.nomSalle}</td>
-                    <td>{salle.nombrePositions}</td>
-                    <td>{salle.etage}</td>
-                    <td>{salle.site}</td>
-                    <td>
-                      <div className="operations-cell">
-                        <span>{salle.nombreOperations}</span>
-                        {salle.nombreOperations > 0 && (
-                          <div className="operations-tooltip">
-                            <Info size={14} />
-                            <div className="tooltip-content">
-                              {operationsBySalle[salle.refSalle]?.map((op) => (
-                                <div key={`${op.type}-${op.ref}`} className="operation-item">
-                                  {op.description} ({op.status})
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td>
-                      <div className="action-buttons">
-                        <button
-                          className="btn-icon"
-                          onClick={() => openConsultModal(salle)}
-                          aria-label="Consulter les détails"
-                        >
-                          <Eye size={16} />
-                        </button>
-                        <button
-                          className="btn-icon edit"
-                          onClick={() => openEditModal(salle)}
-                          aria-label="Modifier la salle"
-                        >
-                          <Edit size={16} />
-                        </button>
-                        <button
-                          className="btn-icon delete"
-                          onClick={() => openDeleteModal(salle.refSalle)}
-                          aria-label="Supprimer la salle"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="filters">
+            <select value={etageFilter} onChange={(e) => setEtageFilter(e.target.value)} aria-label="Filtrer par étage">
+              <option value="">Tous les étages</option>
+              <option value="RDC">RDC</option>
+              <option value="1er">1er</option>
+              <option value="2ème">2ème</option>
+              <option value="3ème">3ème</option>
+            </select>
+
+            <button className="add-button" onClick={openAddModal}>
+              <Plus size={16} />
+              Ajouter une salle
+            </button>
           </div>
         </div>
-      ))}
+      </section>
 
-      {/* Inline Modals */}
+      {/* Tables by Site */}
+      <section className="table-section">
+        {Object.entries(sallesBySite).map(([site, siteSalles]) => (
+          <div key={site} className="site-section">
+            <h2 className="site-title">Site: {site}</h2>
+            <div className="table-container">
+              <table className="salles-table">
+                <thead>
+                  <tr>
+                    <th className={sortField === 'refSalle' ? 'sorted' : ''} onClick={() => handleSort('refSalle')}>
+                      Référence Salle
+                    </th>
+                    <th className={sortField === 'nomSalle' ? 'sorted' : ''} onClick={() => handleSort('nomSalle')}>
+                      Nom Salle
+                    </th>
+                    <th className={sortField === 'nombrePositions' ? 'sorted' : ''} onClick={() => handleSort('nombrePositions')}>
+                      Nombre de positions
+                    </th>
+                    <th className={sortField === 'etage' ? 'sorted' : ''} onClick={() => handleSort('etage')}>
+                      Étage
+                    </th>
+                    <th className={sortField === 'site' ? 'sorted' : ''} onClick={() => handleSort('site')}>
+                      Site
+                    </th>
+                    <th className={sortField === 'nombreOperations' ? 'sorted' : ''} onClick={() => handleSort('nombreOperations')}>
+                      Opérations en cours
+                    </th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {siteSalles.map((salle) => (
+                    <tr key={salle.refSalle}>
+                      <td>{salle.refSalle}</td>
+                      <td>{salle.nomSalle}</td>
+                      <td>{salle.nombrePositions}</td>
+                      <td>{salle.etage}</td>
+                      <td>{salle.site}</td>
+                      <td>
+                        <div className="operations-cell">
+                          <span>{salle.nombreOperations}</span>
+                          {salle.nombreOperations > 0 && (
+                            <div className="operations-tooltip">
+                              <Info size={14} />
+                              <div className="tooltip-content">
+                                {operationsBySalle[salle.refSalle]?.map((op) => (
+                                  <div key={`${op.type}-${op.ref}`} className="operation-item">
+                                    {op.description} ({op.status})
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="action-buttons">
+                          <button className="action-btn consulter" onClick={() => openConsultModal(salle)} aria-label="Consulter">
+                            <Eye size={14} />
+                          </button>
+                          <button className="action-btn edit" onClick={() => openEditModal(salle)} aria-label="Modifier">
+                            <Edit size={14} />
+                          </button>
+                          <button className="action-btn delete" onClick={() => openDeleteModal(salle.refSalle)} aria-label="Supprimer">
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Modals */}
       {showAddModal && <AddSalleModal onClose={closeModals} onSubmit={handleAddSalle} loading={loading.action} />}
-      {showEditModal && selectedSalle && (
-        <EditSalleModal
-          salle={selectedSalle}
-          onClose={closeModals}
-          onSubmit={handleEditSalle}
-          loading={loading.action}
-        />
-      )}
+      {showEditModal && selectedSalle && <EditSalleModal salle={selectedSalle} onClose={closeModals} onSubmit={handleEditSalle} loading={loading.action} />}
       {showConsultModal && selectedSalle && (
         <ConsultSalleModal
           salle={selectedSalle}
@@ -592,14 +559,7 @@ const Salles: React.FC = () => {
           onDelete={openDeleteModal}
         />
       )}
-      {showDeleteModal && selectedSalle && (
-        <DeleteSalleModal
-          salle={selectedSalle}
-          onClose={closeModals}
-          onConfirm={handleDeleteSalle}
-          loading={loading.action}
-        />
-      )}
+      {showDeleteModal && selectedSalle && <DeleteSalleModal salle={selectedSalle} onClose={closeModals} onConfirm={handleDeleteSalle} loading={loading.action} />}
     </div>
   );
 };
