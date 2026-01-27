@@ -828,133 +828,111 @@ const Personnels: React.FC = () => {
   };
 
   return (
-    <div className={`personnels-page ${theme}`}>
+    <div className={`personnels-container ${theme}`}>
       {/* Header */}
-      <PageHeader title='Affectations' onBack={handleBack} />
+      <PageHeader title="Personnels" onBack={handleBack} />
 
       {/* Search and Filters */}
-      <div className="search-filters">
-        <div className="search-bar">
-          <Search size={20} />
-          <input
-            type="text"
-            placeholder="Rechercher par matricule, nom, prénom ou email..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      <section className="search-filters-section">
+        <div className="search-filters">
+          <div className="search-group">
+            <div className="search-input-container">
+              <Search size={16} />
+              <input
+                type="text"
+                placeholder="Rechercher par matricule, nom, prénom ou email..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="filters">
+            <select value={posteFilter} onChange={(e) => setPosteFilter(e.target.value)} aria-label="Filtrer par poste">
+              <option value="">Tous les postes</option>
+              {uniquePostes.map(poste => (
+                <option key={poste} value={poste}>{poste}</option>
+              ))}
+            </select>
+
+            <select value={projetFilter} onChange={(e) => setProjetFilter(e.target.value)} aria-label="Filtrer par projet">
+              <option value="">Tous les projets</option>
+              {uniqueProjets.map(projet => (
+                <option key={projet} value={projet}>{projet}</option>
+              ))}
+            </select>
+
+            {/* Input caché */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              accept=".xlsx,.xls"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+
+            <button className="add-button" onClick={handleButtonClick}>
+              <Plus size={16} />
+              Importer
+            </button>
+
+            <button className="add-button" onClick={() => setShowAddModal(true)}>
+              <Plus size={16} />
+              Ajouter une personne
+            </button>
+          </div>
         </div>
-        <div className="filters">
-          <select value={posteFilter} onChange={(e) => setPosteFilter(e.target.value)} aria-label="Filtrer par poste">
-            <option value="">Tous les postes</option>
-            {uniquePostes.map(poste => (
-              <option key={poste} value={poste}>{poste}</option>
-            ))}
-          </select>
-          <select value={projetFilter} onChange={(e) => setProjetFilter(e.target.value)} aria-label="Filtrer par projet">
-            <option value="">Tous les projets</option>
-            {uniqueProjets.map(projet => (
-              <option key={projet} value={projet}>{projet}</option>
-            ))}
-          </select>
-          {/* Input caché */}
-          <input
-            type="file"
-            ref={fileInputRef}
-            accept=".xlsx,.xls"
-            onChange={handleFileChange}
-            style={{ display: "none" }}
-          />
-          <button className="btn-primary add-btn" onClick={handleButtonClick}>
-            <Plus size={16} />
-            Importer
-          </button>
-          <button className="btn-primary add-btn" onClick={() => setShowAddModal(true)}>
-            <Plus size={16} />
-            Ajouter une personne
-          </button>
-        </div>
-      </div>
+      </section>
 
       {/* Table */}
-      <div className="table-container">
-        <table className="personnels-table">
-          <thead>
-            <tr>
-              <th className={sortField === 'matricule' ? 'sorted' : ''} onClick={() => handleSort('matricule')}>
-                Matricule
-              </th>
-              <th className={sortField === 'nom' ? 'sorted' : ''} onClick={() => handleSort('nom')}>
-                Nom
-              </th>
-              <th className={sortField === 'prenom' ? 'sorted' : ''} onClick={() => handleSort('prenom')}>
-                Prénom
-              </th>
-              <th className={sortField === 'email' ? 'sorted' : ''} onClick={() => handleSort('email')}>
-                Email
-              </th>
-              <th className={sortField === 'poste' ? 'sorted' : ''} onClick={() => handleSort('poste')}>
-                Poste
-              </th>
-              <th className={sortField === 'projet' ? 'sorted' : ''} onClick={() => handleSort('projet')}>
-                Projet
-              </th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedPersonnes.map((personne) => (
-              <tr key={personne.matricule}>
-                <td>{personne.matricule}</td>
-                <td>{personne.nom}</td>
-                <td>{personne.prenom}</td>
-                <td>{personne.email}</td>
-                <td>{personne.poste}</td>
-                <td>{personne.projet}</td>
-                <td>
-                  <div className="action-buttons">
-                    <button
-                      className="btn-icon"
-                      onClick={() => handleConsultPersonne(personne)}
-                      aria-label="Consulter les détails"
-                    >
-                      <Eye size={16} />
-                    </button>
-                    <button
-                      className="btn-icon edit"
-                      onClick={() => handleEditPersonne(personne)}
-                      aria-label="Modifier la personne"
-                    >
-                      <Edit size={16} />
-                    </button>
-                    <button
-                      className="btn-icon assign"
-                      onClick={() => handleAffecterMateriel(personne)}
-                      aria-label="Affecter du matériel"
-                    >
-                      <UserPlus size={16} />
-                    </button>
-                    <button
-                      className="btn-icon delete"
-                      onClick={() => handleDeletePersonne(personne.matricule)}
-                      aria-label="Supprimer la personne"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </div>
-                </td>
+      <section className="table-section">
+        <div className="table-container">
+          <table className="personnels-table">
+            <thead>
+              <tr>
+                <th className={sortField === 'matricule' ? 'sorted' : ''} onClick={() => handleSort('matricule')}>Matricule</th>
+                <th className={sortField === 'nom' ? 'sorted' : ''} onClick={() => handleSort('nom')}>Nom</th>
+                <th className={sortField === 'prenom' ? 'sorted' : ''} onClick={() => handleSort('prenom')}>Prénom</th>
+                <th className={sortField === 'email' ? 'sorted' : ''} onClick={() => handleSort('email')}>Email</th>
+                <th className={sortField === 'poste' ? 'sorted' : ''} onClick={() => handleSort('poste')}>Poste</th>
+                <th className={sortField === 'projet' ? 'sorted' : ''} onClick={() => handleSort('projet')}>Projet</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {sortedPersonnes.map((personne) => (
+                <tr key={personne.matricule}>
+                  <td>{personne.matricule}</td>
+                  <td>{personne.nom}</td>
+                  <td>{personne.prenom}</td>
+                  <td>{personne.email}</td>
+                  <td>{personne.poste}</td>
+                  <td>{personne.projet}</td>
+                  <td>
+                    <div className="action-buttons">
+                      <button className="action-btn consulter" onClick={() => handleConsultPersonne(personne)} aria-label="Consulter">
+                        <Eye size={14} />
+                      </button>
+                      <button className="action-btn edit" onClick={() => handleEditPersonne(personne)} aria-label="Modifier">
+                        <Edit size={14} />
+                      </button>
+                      <button className="action-btn assign" onClick={() => handleAffecterMateriel(personne)} aria-label="Affecter du matériel">
+                        <UserPlus size={14} />
+                      </button>
+                      <button className="action-btn delete" onClick={() => handleDeletePersonne(personne.matricule)} aria-label="Supprimer">
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       {/* Modals */}
-      {showAddModal && (
-        <ModalAjouterPersonne
-          onClose={() => setShowAddModal(false)}
-          onSubmit={handleAddPersonne}
-        />
-      )}
+      {showAddModal && <ModalAjouterPersonne onClose={() => setShowAddModal(false)} onSubmit={handleAddPersonne} />}
 
       {showConsultModal && selectedPersonne && (
         <ModalConsulterPersonne
@@ -978,9 +956,7 @@ const Personnels: React.FC = () => {
               const affectationsData = await getAllAffectations();
               const affectationsMap: Record<string, Affectation[]> = {};
               (affectationsData as AffectationFromAPI[]).forEach((aff) => {
-                if (!affectationsMap[aff.matricule]) {
-                  affectationsMap[aff.matricule] = [];
-                }
+                if (!affectationsMap[aff.matricule]) affectationsMap[aff.matricule] = [];
                 affectationsMap[aff.matricule].push({
                   refAffectation: aff.refAffectation.toString(),
                   matricule: aff.matricule,
