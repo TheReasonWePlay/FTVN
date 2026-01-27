@@ -14,10 +14,12 @@
     "chart.js": "^4.5.1",
     "lucide-react": "^0.562.0",
     "react": "^19.1.1",
+    "react-barcode": "^1.6.1",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.1.1",
     "react-error-boundary": "^6.1.0",
-    "react-router-dom": "^7.9.3"
+    "react-router-dom": "^7.9.3",
+    "react-to-print": "^3.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

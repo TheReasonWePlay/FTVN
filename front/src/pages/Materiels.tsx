@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-
+import Barcode from 'react-barcode';
+import { useReactToPrint } from 'react-to-print';
 import {
   Search,
   Plus,
@@ -18,9 +19,12 @@ import {
 } from 'lucide-react';
 
 import '../styles/Materiels.css';
+import '../styles/page.css';
+import '../styles/tableau.css';
+import '../styles/modal.css';
+
 import { useToast } from '../hooks/useToast';
 import { useTheme } from '../contexts/ThemeContext';
-import PageHeader from '../components/PageHeader';
 import type { Materiel } from '../types';
 
 import {
@@ -140,13 +144,13 @@ const Materiels: React.FC = () => {
   const filteredMateriels = useMemo(() => {
     let filtered = materielsData.materiels?.filter(materiel => {
       const matchesSearch = materiel?.numSerie?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           materiel?.dateAjout?.includes(searchTerm);
+        materiel?.dateAjout?.includes(searchTerm);
       const matchesDateRange = (!dateFrom || (materiel?.dateAjout && materiel.dateAjout >= dateFrom)) &&
-                              (!dateTo || (materiel?.dateAjout && materiel.dateAjout <= dateTo));
+        (!dateTo || (materiel?.dateAjout && materiel.dateAjout <= dateTo));
       const matchesFilters = (!filters.marque || materiel?.marque?.toLowerCase().includes(filters.marque.toLowerCase())) &&
-                            (!filters.modele || materiel?.modele?.toLowerCase().includes(filters.modele.toLowerCase())) &&
-                            (!filters.categorie || materiel?.categorie?.toLowerCase().includes(filters.categorie.toLowerCase())) &&
-                            (!filters.status || materiel?.status?.toLowerCase().includes(filters.status.toLowerCase()));
+        (!filters.modele || materiel?.modele?.toLowerCase().includes(filters.modele.toLowerCase())) &&
+        (!filters.categorie || materiel?.categorie?.toLowerCase().includes(filters.categorie.toLowerCase())) &&
+        (!filters.status || materiel?.status?.toLowerCase().includes(filters.status.toLowerCase()));
 
       return matchesSearch && matchesDateRange && matchesFilters;
     }) || [];
@@ -692,8 +696,13 @@ const Materiels: React.FC = () => {
   };
 
   const ConsulterMaterielModal: React.FC<{ isOpen: boolean; onClose: () => void; materiel: Materiel }> = ({ isOpen, onClose, materiel }) => {
+    const barcodeRef = useRef<HTMLDivElement>(null);
     const { theme } = useTheme();
-    if (!isOpen) return null;
+
+    const handlePrint = useReactToPrint({
+      contentRef: barcodeRef,
+      documentTitle: `Badge-${materiel?.numSerie}`,
+    });
 
     const getStatusColor = (status: string) => {
       switch (status?.toLowerCase()) {
@@ -719,6 +728,26 @@ const Materiels: React.FC = () => {
             <div className="materiel-details">
               <div className="detail-section">
                 <h3>Informations Générales</h3>
+                <div
+                  ref={barcodeRef}
+                  style={{ background: 'white', padding: '16px', display: 'inline-block' }}
+                >
+                  <h4 style={{ textAlign: 'center' }}>Matériel</h4>
+
+                  <Barcode
+                    value={materiel?.numSerie ?? ''}
+                    format="CODE128"
+                    width={2}
+                    height={100}
+                    displayValue
+                  />
+                </div>
+                <button
+                  onClick={handlePrint}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  🖨️ Imprimer
+                </button>
                 <div className="detail-grid">
                   <div className="detail-item">
                     <label>Numéro de Série:</label>
@@ -1199,7 +1228,14 @@ const Materiels: React.FC = () => {
   return (
     <div className="materiels-container">
       {/* Header */}
-      <PageHeader title="Matériels" onBack={handleBack} />
+      <header className="materiels-header">
+        <div className="header-left">
+          <button className="back-button" onClick={handleBack} aria-label="Retour">
+            <ChevronLeft size={20} />
+          </button>
+          <h1 className="page-title">Inventaires</h1>
+        </div>
+      </header>
 
       {/* Information Cards */}
       <section className="info-cards-section">
@@ -1212,12 +1248,12 @@ const Materiels: React.FC = () => {
           <div className="info-card">
             <h3>Par Statut</h3>
             <div className="status-breakdown">
-            {Object.entries(materielsData.materielsByStatus).map((item) => (
-              <div key={item.statut} className="status-item">
-                <span className={`status-dot ${getStatusClass(item.statut)}`}></span>
-                <span>{item.statut}: {item.count}</span>
-              </div>
-            ))}
+              {Object.entries(materielsData.materielsByStatus).map((item) => (
+                <div key={item.statut} className="status-item">
+                  <span className={`status-dot ${getStatusClass(item.statut)}`}></span>
+                  <span>{item.statut}: {item.count}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -1333,7 +1369,6 @@ const Materiels: React.FC = () => {
                     <option value="Hors service">Hors service</option>
                   </select>
                 </th>
-                <th>Action</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -1351,40 +1386,10 @@ const Materiels: React.FC = () => {
                       </span>
                     </td>
                     <td>
-                      {materiel?.status?.toLowerCase() === 'affecté' ? (
-                        <button
-                          onClick={() => handleCloseAffectation(Number(materiel?.refAffectation) || 0)}
-                          className="action-btn working"
-                          aria-label="Close Affectation"
-                          type="button"
-                        >
-                          <Link2Off size={16} />
-                        </button>
-                      ) : materiel?.status?.toLowerCase() === 'disponible' ? (
-                        <button
-                          onClick={() => handleAffectMateriel(materiel)}
-                          className="action-btn working"
-                          aria-label="Affecter"
-                          type="button"
-                        >
-                          <Link2 size={16} />
-                        </button>
-                      ) : (
-                        <button
-                          className="action-btn disabled"
-                          aria-label="Action"
-                          type="button"
-                          disabled
-                        >
-                          {materiel?.status?.toLowerCase() === 'affecté' ? <Link2Off size={16} /> : <Link2 size={16} />}
-                        </button>
-                      )}
-                    </td>
-                    <td>
                       <div className="action-buttons">
                         <button
                           onClick={() => handleConsultMateriel(materiel)}
-                          className="action-btn view-btn"
+                          className="action-btn consulter"
                           aria-label="Voir les détails"
                           type="button"
                         >
@@ -1392,23 +1397,43 @@ const Materiels: React.FC = () => {
                         </button>
                         <button
                           onClick={() => handleEditMateriel(materiel)}
-                          className="action-btn edit-btn"
+                          className="action-btn edit"
                           aria-label="Modifier"
                           type="button"
                         >
                           <Edit size={16} />
                         </button>
-                        <button
-                          onClick={() => handleAffectMateriel(materiel)}
-                          className="action-btn affect-btn"
-                          aria-label="Affecter"
-                          type="button"
-                        >
-                          <Link2 size={16} />
-                        </button>
+                        {materiel?.status?.toLowerCase() === 'affecté' ? (
+                          <button
+                            onClick={() => handleCloseAffectation(Number(materiel?.refAffectation) || 0)}
+                            className="action-btn working des-affecter"
+                            aria-label="Close Affectation"
+                            type="button"
+                          >
+                            <Link2Off size={16} />
+                          </button>
+                        ) : materiel?.status?.toLowerCase() === 'disponible' ? (
+                          <button
+                            onClick={() => handleAffectMateriel(materiel)}
+                            className="action-btn working affecter"
+                            aria-label="Affecter"
+                            type="button"
+                          >
+                            <Link2 size={16} />
+                          </button>
+                        ) : (
+                          <button
+                            className="action-btn disabled"
+                            aria-label="Action"
+                            type="button"
+                            disabled
+                          >
+                            {materiel?.status?.toLowerCase() === 'affecté' ? <Link2Off size={16} /> : <Link2 size={16} />}
+                          </button>
+                        )}
                         <button
                           onClick={() => handleDeleteMateriel(materiel?.numSerie || '')}
-                          className="action-btn delete-btn"
+                          className="action-btn delete"
                           aria-label="Supprimer"
                           type="button"
                         >
