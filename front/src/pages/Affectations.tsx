@@ -13,7 +13,8 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  AlertTriangle
+  AlertTriangle,
+  Funnel
 } from 'lucide-react';
 
 import '../styles/Affectations.css';
@@ -464,6 +465,34 @@ const Affectations: React.FC = () => {
 
   const totalPages = Math.ceil(filteredAffectations.length / itemsPerPage);
 
+  const [filterDropdowns, setFilterDropdowns] = useState({
+    refAffectation: false,
+    refPosition: false,
+    matricule: false,
+  });
+
+  const toggleFilterDropdown = (key: keyof typeof filterDropdowns) => {
+    setFilterDropdowns(prev => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.th-content') && !target.closest('.filter-dropdown')) {
+        setFilterDropdowns({
+          refAffectation: false,
+          refPosition: false,
+          matricule: false,
+        });
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
     <div className={`affectations-container ${theme}`}>
       {/* Header */}
@@ -519,34 +548,67 @@ const Affectations: React.FC = () => {
           <table className="affectations-table">
             <thead>
               <tr>
-                <th>
-                  <input
-                    type="text"
-                    placeholder="Réf. Affectation"
-                    value={filters.refAffectation}
-                    onChange={(e) => handleFilterChange('refAffectation', e.target.value)}
-                  />
-                </th>
-                <th>
-                  <input
-                    type="text"
-                    placeholder="Réf. Position"
-                    value={filters.refPosition}
-                    onChange={(e) => handleFilterChange('refPosition', e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Matricule"
-                    value={filters.matricule}
-                    onChange={(e) => handleFilterChange('matricule', e.target.value)}
-                  />
-                </th>
-                <th onClick={() => handleSort('dateDebut')}>
-                  Date début
-                  {sortConfig?.key === 'dateDebut' && (
-                    sortConfig.direction === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />
+                {/* Réf. Affectation */}
+                <th style={{ position: 'relative' }}>
+                  <div className="th-content">
+                    Réf. Affectation
+                    <Funnel
+                      className={`filter-icon ${filterDropdowns.refAffectation ? 'active' : ''}`}
+                      size={16}
+                      onClick={() => toggleFilterDropdown('refAffectation')}
+                    />
+                  </div>
+                  {filterDropdowns.refAffectation && (
+                    <div className="filter-dropdown">
+                      <input
+                        type="text"
+                        placeholder="Filtrer Réf. Affectation"
+                        value={filters.refAffectation}
+                        onChange={(e) => handleFilterChange('refAffectation', e.target.value)}
+                      />
+                    </div>
                   )}
                 </th>
+
+                {/* Réf. Position / Matricule */}
+                <th style={{ position: 'relative' }}>
+                  <div className="th-content">
+                    Réf. Position / Matricule
+                    <Funnel
+                      className={`filter-icon ${filterDropdowns.refPosition ? 'active' : ''}`}
+                      size={16}
+                      onClick={() => toggleFilterDropdown('refPosition')}
+                    />
+                  </div>
+                  {filterDropdowns.refPosition && (
+                    <div className="filter-dropdown">
+                      <input
+                        type="text"
+                        placeholder="Filtrer Réf. Position"
+                        value={filters.refPosition}
+                        onChange={(e) => handleFilterChange('refPosition', e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Filtrer Matricule"
+                        value={filters.matricule}
+                        onChange={(e) => handleFilterChange('matricule', e.target.value)}
+                      />
+                    </div>
+                  )}
+                </th>
+
+                {/* Date début */}
+                <th onClick={() => handleSort('dateDebut')} style={{ cursor: 'pointer' }}>
+                  <div className="th-content">
+                    Date début
+                    {sortConfig?.key === 'dateDebut' && (
+                      sortConfig.direction === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />
+                    )}
+                  </div>
+                </th>
+
+                {/* Autres colonnes */}
                 <th>Date fin</th>
                 <th>Nom</th>
                 <th>Prénom</th>
@@ -560,31 +622,34 @@ const Affectations: React.FC = () => {
                   <td>{affectation.refPosition || affectation.matricule}</td>
                   <td>{affectation.dateDebut}</td>
                   <td>{affectation.dateFin || 'En cours'}</td>
+                  <td>{affectation.nom}</td>
+                  <td>{affectation.prenom}</td>
                   <td>
                     <div className="action-buttons">
                       <button
-                        className=" action-btn consulter"
+                        className="action-btn consulter"
                         onClick={() => handleConsulterAffectation(affectation)}
                         aria-label="Consulter"
                       >
                         <Eye size={14} />
                       </button>
                       <button
-                        className=' action-btn edit'
+                        className="action-btn edit"
                         onClick={() => handleModifierAffectation(affectation)}
                         aria-label="Modifier"
                       >
                         <Edit size={14} />
                       </button>
                       <button
-                        className=' action-btn close'
+                        className="action-btn close"
                         onClick={() => handleCloreAffectationConfirm(affectation)}
-                        aria-label="Clore" disabled={!!affectation.dateFin}
+                        aria-label="Clore"
+                        disabled={!!affectation.dateFin}
                       >
                         <Link2Off size={14} />
                       </button>
                       <button
-                        className='action-btn delete'
+                        className="action-btn delete"
                         onClick={() => handleSupprimerAffectationConfirm(affectation)}
                         aria-label="Supprimer"
                       >
