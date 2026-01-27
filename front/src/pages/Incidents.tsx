@@ -16,6 +16,10 @@ import {
 } from 'lucide-react';
 
 import '../styles/Incidents.css';
+import '../styles/tableau.css';
+import '../styles/page.css';
+import '../styles/modal.css';
+
 import { useTheme } from '../contexts/ThemeContext';
 import PageHeader from '../components/PageHeader';
 
@@ -637,39 +641,6 @@ const Incidents: React.FC = () => {
     <div className={`incidents-container ${theme}`}>
       {/* Header */}
       <PageHeader title="Incidents" onBack={handleBack} />
-
-      {/* Information Cards */}
-      <section className="info-cards-section">
-        <div className="info-cards">
-          <div className="info-card">
-            <h3>Total Incidents</h3>
-            <p className="card-value">{incidentsData.totalIncidents}</p>
-          </div>
-
-          <div className="info-card">
-            <h3>Par Statut</h3>
-            <div className="status-breakdown">
-              {Object.entries(incidentsData.incidentsByStatus).map(([status, count]) => (
-                <div key={status} className="status-item">
-                  <span className={`status-dot status-${status.toLowerCase().replace(' ', '-')}`}></span>
-                  <span>{status}: {count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="info-card">
-            <h3>Par Type</h3>
-            <div className="type-breakdown">
-              {Object.entries(incidentsData.incidentsByType).map(([type, count]) => (
-                <div key={type} className="type-item">
-                  <span>{type}: {count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Search and Filters */}
       <section className="search-filters-section">
