@@ -67,6 +67,8 @@ interface DashboardState {
   error: string | null;
 }
 
+const ALL_STATUSES = ['Disponible', 'Affecté', 'En panne', 'Hors service'];
+
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
@@ -155,18 +157,22 @@ const Dashboard: React.FC = () => {
 
   const dashboardData = dashboardState.data;
 
+  // Normaliser les statuts pour toujours avoir toutes les cartes
+  const normalizedStatuses = ALL_STATUSES.map(status => {
+    if (Array.isArray(dashboardData.materielsByStatus)) {
+      const found = dashboardData.materielsByStatus.find(s => s.statut.toLowerCase() === status.toLowerCase());
+      return { statut: status, count: found ? found.count : 0 };
+    } else {
+      return { statut: status, count: dashboardData.materielsByStatus[status] ?? 0 };
+    }
+  });
+
   // Donut chart data
   const donutData = {
-    labels: Array.isArray(dashboardData.materielsByStatus)
-      ? dashboardData.materielsByStatus.map(s => s.statut)
-      : Object.keys(dashboardData.materielsByStatus),
+    labels: normalizedStatuses.map(s => s.statut),
     datasets: [{
-      data: Array.isArray(dashboardData.materielsByStatus)
-        ? dashboardData.materielsByStatus.map(s => s.count)
-        : Object.values(dashboardData.materielsByStatus),
-      backgroundColor: Array.isArray(dashboardData.materielsByStatus)
-        ? dashboardData.materielsByStatus.map(s => getStatusColor(s.statut))
-        : Object.keys(dashboardData.materielsByStatus).map(getStatusColor),
+      data: normalizedStatuses.map(s => s.count),
+      backgroundColor: normalizedStatuses.map(s => getStatusColor(s.statut)),
       borderWidth: 1,
     }],
   };
@@ -230,26 +236,15 @@ const Dashboard: React.FC = () => {
               </div>
 
               {/* Cards par Status */}
-              {Array.isArray(dashboardData.materielsByStatus)
-                ? dashboardData.materielsByStatus.map((item) => (
-                    <div key={item.statut} className="info-card clickable status-card" onClick={handleNavigateToMateriels}>
-                      <div className="card-icon"><Monitor size={24} /></div>
-                      <div className="card-content">
-                        <h3>{item.statut}</h3>
-                        <p className="card-value">{item.count}</p>
-                      </div>
-                    </div>
-                  ))
-                : Object.entries(dashboardData.materielsByStatus).map(([status, count]) => (
-                    <div key={status} className="info-card clickable status-card" onClick={handleNavigateToMateriels}>
-                      <div className="card-icon"><Monitor size={24} /></div>
-                      <div className="card-content">
-                        <h3>{status}</h3>
-                        <p className="card-value">{count}</p>
-                      </div>
-                    </div>
-                  ))
-              }
+              {normalizedStatuses.map(item => (
+                <div key={item.statut} className="info-card clickable status-card" onClick={handleNavigateToMateriels}>
+                  <div className="card-icon"><Monitor size={24} /></div>
+                  <div className="card-content">
+                    <h3>{item.statut}</h3>
+                    <p className="card-value">{item.count}</p>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Donut Chart */}
