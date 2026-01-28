@@ -10,7 +10,6 @@ import {
   Pin,
   Monitor
 } from 'lucide-react';
-
 import { Doughnut, Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -216,6 +215,8 @@ const Dashboard: React.FC = () => {
     op.type !== 'incident' || op.status.toLowerCase() === 'ouvert'
   );
 
+  const recentMaterielsAdded = dashboardData.recentOperations.filter(op => op.type === 'ajout-materiel').length;
+
   return (
     <ErrorBoundary>
       <div className={`dashboard-container ${isDarkMode ? 'dark' : 'light'}`}>
@@ -323,6 +324,14 @@ const Dashboard: React.FC = () => {
                 <div className="counter-content">
                   <h4>Nouvelles Affectations</h4>
                   <p className="counter-value">{dashboardData.newAffectations}</p>
+                </div>
+              </div>
+
+              <div className='counter-card clickable' onClick={handleNavigateToMateriels}>
+                <div className='counter-icon'><Monitor size={24} /></div>
+                <div className='counter-content'>
+                  <h4>Matériels ajoutés</h4>
+                  <p className='counter-value'>{recentMaterielsAdded}</p>
                 </div>
               </div>
             </div>
