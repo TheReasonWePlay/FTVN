@@ -92,13 +92,22 @@ export const deleteAffectation = async (id: number): Promise<{ message: string }
   }
 };
 
-export const closeAffectation = async (id: number): Promise<{ message: string }> => {
+export const closeAffectation = async (
+  id: number,
+  idMateriel: string
+): Promise<{ message: string }> => {
   try {
-    const response = await apiClient.put(`/affectations/${id}/close`);
+    const response = await apiClient.put(
+      `/affectations/${id}/close`,
+      { idMateriel } // 👈 body
+    );
     return response.data;
   } catch (error: unknown) {
     const axiosError = error as { response?: { data?: { message?: string } } };
-    throw new Error(axiosError.response?.data?.message || `Erreur lors de la clôture de l'affectation ${id}`);
+    throw new Error(
+      axiosError.response?.data?.message ||
+      `Erreur lors de la clôture de l'affectation ${id}`
+    );
   }
 };
 

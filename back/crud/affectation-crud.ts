@@ -109,8 +109,8 @@ export const createAffectation = async (req: Request, res: Response) => {
         const query = 'INSERT INTO affectation (dateDebut, matricule, refPosition) VALUES (CURDATE(), ?, ?)';
         const [result] = await db.query(query, [matricule || null, refPosition || null]);
 
-        const query1 = `UPDATE materiel SET status = 'Affecté' WHERE numSerie = ?`;
-        const [result1] = await db.query(query1, numSerie);
+        const query1 = `UPDATE materiel SET status = 'Affecté', refAffectation = ? WHERE numSerie = ?`;
+        const [result1] = await db.query(query1, [(result as any).insertId, numSerie]);
 
         res.status(201).json({
             message: 'Affectation créée avec succès',
@@ -185,6 +185,7 @@ export const deleteAffectation = async (req: Request, res: Response) => {
 export const closeAffectation = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
+        const { idMateriel } = req.body;
 
         // Vérifier si déjà clôturée
         const [checkRows] = await db.query('SELECT dateFin FROM affectation WHERE refAffectation = ?', [id]);
@@ -197,6 +198,8 @@ export const closeAffectation = async (req: Request, res: Response) => {
 
         // Définir dateFin à CURDATE()
         const [result] = await db.query('UPDATE affectation SET dateFin = CURDATE() WHERE refAffectation = ?', [id]);
+        const [result1] = await db.query(`UPDATE materiel SET status = 'Disponible', refAffectation = null WHERE numSerie = ?`, [idMateriel]);
+
         if ((result as any).affectedRows === 0) {
             return res.status(404).json({ message: 'Affectation introuvable' });
         }

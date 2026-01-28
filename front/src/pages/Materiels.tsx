@@ -277,11 +277,10 @@ const Materiels: React.FC = () => {
   };
 
   const handleCloseAffectation = useCallback(
-    async (refAffectation: number) => {
+    async (refAffectation: number, numSerie1: string) => {
       if (!mountedRef.current) return;
-
       try {
-        await closeAffectation(refAffectation);
+        await closeAffectation(refAffectation, numSerie1);
 
         if (!mountedRef.current) return;
 
@@ -1370,7 +1369,7 @@ const Materiels: React.FC = () => {
                         </button>
                         {materiel?.status?.toLowerCase() === 'affecté' ? (
                           <button
-                            onClick={() => handleCloseAffectation(Number(materiel?.refAffectation) || 0)}
+                            onClick={() => handleCloseAffectation(Number(materiel?.refAffectation) || 0, materiel?.numSerie)}
                             className="action-btn working des-affecter"
                             aria-label="Close Affectation"
                             type="button"
