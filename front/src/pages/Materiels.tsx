@@ -727,14 +727,12 @@ const Materiels: React.FC = () => {
 
           <div className="modal-body">
             <div className="materiel-details">
-              <div className="detail-section">
-                <h3>Informations Générales</h3>
+              <div className="barcode-section">
                 <div
                   ref={barcodeRef}
-                  style={{ background: 'white', padding: '16px', display: 'inline-block' }}
+                  className="barcode-card"
                 >
-                  <h4 style={{ textAlign: 'center' }}>Matériel</h4>
-
+                  <h4>Matériel</h4>
                   <Barcode
                     value={materiel?.numSerie ?? ''}
                     format="CODE128"
@@ -743,12 +741,17 @@ const Materiels: React.FC = () => {
                     displayValue
                   />
                 </div>
+
                 <button
                   onClick={handlePrint}
-                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  className="print-button"
                 >
                   🖨️ Imprimer
                 </button>
+              </div>
+              <div className="detail-section">
+                <h3>Informations Générales</h3>
+
                 <div className="detail-grid">
                   <div className="detail-item">
                     <label>Numéro de Série:</label>
