@@ -15,6 +15,7 @@ export interface Affectation {
 export interface CreateAffectationInput {
   matricule?: string;
   refPosition?: string;
+  numSerie?: string;
 }
 
 export interface UpdateAffectationInput {
@@ -36,9 +37,9 @@ export interface PositionFilter {
   refPosition: string;
 }
 
-export interface DateAndMatriculeFilter extends DateRangeFilter, MatriculeFilter {}
+export interface DateAndMatriculeFilter extends DateRangeFilter, MatriculeFilter { }
 
-export interface DateAndPositionFilter extends DateRangeFilter, PositionFilter {}
+export interface DateAndPositionFilter extends DateRangeFilter, PositionFilter { }
 
 // CRUD functions
 export const getAllAffectations = async (): Promise<Affectation[]> => {

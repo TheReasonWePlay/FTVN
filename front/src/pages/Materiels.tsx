@@ -878,7 +878,8 @@ const Materiels: React.FC = () => {
       try {
         const affectationData = {
           matricule: selectedPersonne || undefined,
-          refPosition: selectedPosition || undefined
+          refPosition: selectedPosition || undefined,
+          numSerie: selectedMateriel.numSerie || undefined
         };
 
         await createAffectation(affectationData);

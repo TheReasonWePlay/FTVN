@@ -22,6 +22,7 @@ export interface Affectation {
 export interface CreateAffectationInput {
     matricule?: string;
     refPosition?: string;
+    numSerie?: string;
 }
 
 export interface UpdateAffectationInput {
@@ -95,11 +96,21 @@ export const createAffectation = async (req: Request, res: Response) => {
             return res.status(400).json({ error: validation.error });
         }
 
-        const { matricule, refPosition } = input;
+        const { matricule, refPosition, numSerie } = input;
 
         // dateDebut est automatiquement définie à CURDATE()
+        console.log("matricule");
+        console.log(matricule);
+        console.log("refPosition");
+        console.log(refPosition);
+        console.log("numSerie");
+        console.log(numSerie);
+
         const query = 'INSERT INTO affectation (dateDebut, matricule, refPosition) VALUES (CURDATE(), ?, ?)';
         const [result] = await db.query(query, [matricule || null, refPosition || null]);
+
+        const query1 = `UPDATE materiel SET status = 'Affecté' WHERE numSerie = ?`;
+        const [result1] = await db.query(query1, numSerie);
 
         res.status(201).json({
             message: 'Affectation créée avec succès',
