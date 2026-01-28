@@ -26,6 +26,7 @@ import '../styles/modal.css';
 import { useToast } from '../hooks/useToast';
 import { useTheme } from '../contexts/ThemeContext';
 import type { Materiel } from '../types';
+import PageHeader from '../components/PageHeader';
 
 import {
   getAllMateriels,
@@ -1228,14 +1229,7 @@ const Materiels: React.FC = () => {
   return (
     <div className="materiels-container">
       {/* Header */}
-      <header className="materiels-header">
-        <div className="header-left">
-          <button className="back-button" onClick={handleBack} aria-label="Retour">
-            <ChevronLeft size={20} />
-          </button>
-          <h1 className="page-title">Inventaires</h1>
-        </div>
-      </header>
+      <PageHeader title="Matériels" onBack={handleBack} />
 
       {/* Search and Filters */}
       <section className="search-filters-section">

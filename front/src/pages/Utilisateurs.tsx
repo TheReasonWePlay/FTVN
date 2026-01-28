@@ -420,7 +420,7 @@ const Utilisateurs: React.FC = () => {
   return (
     <div className={`utilisateurs-container ${theme}`}>
       {/* Header */}
-      <PageHeader title="Incidents" onBack={handleBack} />
+      <PageHeader title="Utilisateurs" onBack={handleBack} />
 
       {/* Search and Filters */}
       <section className="search-filters-section">
