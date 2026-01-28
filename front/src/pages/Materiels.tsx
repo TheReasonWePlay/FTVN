@@ -1237,39 +1237,6 @@ const Materiels: React.FC = () => {
         </div>
       </header>
 
-      {/* Information Cards */}
-      <section className="info-cards-section">
-        <div className="info-cards">
-          <div className="info-card">
-            <h3>Total Matériels</h3>
-            <p className="card-value">{materielsData.totalMateriels}</p>
-          </div>
-
-          <div className="info-card">
-            <h3>Par Statut</h3>
-            <div className="status-breakdown">
-              {Object.entries(materielsData.materielsByStatus).map((item) => (
-                <div key={item.statut} className="status-item">
-                  <span className={`status-dot ${getStatusClass(item.statut)}`}></span>
-                  <span>{item.statut}: {item.count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="info-card">
-            <h3>Par Catégorie</h3>
-            <div className="category-breakdown">
-              {Object.entries(materielsData.materielsByCategory).map((item) => (
-                <div key={item.category} className="category-item">
-                  <span>{item.category}: {item.count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Search and Filters */}
       <section className="search-filters-section">
         <div className="search-filters">
